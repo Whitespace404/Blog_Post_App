@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block title %}Login{% endblock title %}
+{% block content %}
+    <form method="POST" action="">
+        {{ form.hidden_tag() }}
+        <fieldset class="box" id="login-fieldset">
+            <legend>
+                Join Us!
+            </legend>
+            <div class="login">
+                <div class="email">
+                {{ form.username.label }}
+                {% if form.username.errors %}
+                    {{ form.username(class="invalid-username") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.username.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+
+
+                {% else %}
+                    {{ form.username }}
+                {% endif %}
+                    </div>
+                <div class="password">
+                {{ form.password.label }}
+                {% if form.password.errors %}
+                    {{ form.password(class="invalid-password") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.password.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.password }}
+                {% endif %}
+                </div>
+              <div class="checkbox">
+                {{ form.remember(class="form-check-input") }}
+                {{ form.remember.label(class="form-check-input") }}
+              </div><br>
+              <small>
+                <a href="{{ url_for('register') }}">Need an Account? Sign Up!</a>
+              </small>
+            </div>
+            <div class="submit-btn">
+            {{ form.submit }}
+            </div>
+            </div>
+        </fieldset>
+
+    </form>
+
+{% endblock %}

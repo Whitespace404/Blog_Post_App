@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}Oops!{% endblock title %}
+
+{% block content %}
+<h1>Oops! 404. <br> <span id="error-msg-404">error!</span></h1>
+
+<p style="
+text-align: center;
+font-size: 17px;
+padding-bottom: 5px;">
+    The page you got redirected to does not exsist.
+    <a href="{{ url_for('home') }}">Click here to go to the home page.</a><br><br>
+</p>
+
+<p style="
+text-align: center;
+font-size: 19px;
+padding-bottom: 5px;
+border-bottom: 3px solid white;
+"><br>
+    If you entered the URL manually, try checking your spelling.<br>
+    <b>Note</b>: The URLs are case sensitive.<br><br>
+</p>
+{% endblock content %}

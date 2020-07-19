@@ -1,0 +1,247 @@
+/* Main init app */
+*{
+    margin: 0px 0px 0px 0px;
+    padding: 0px 0px 0px 0px;
+    box-sizing: border-box;
+    font-family: Poppins, 'Poppins', sans-serif;
+    text-decoration: none;
+}
+
+body{
+    background-image: linear-gradient(60deg, #000000, #000001, #000009);
+    background-size: 100%;
+    color: white;
+    margin-left: 100px;
+    margin-right: 100px;
+    margin-top: 20px;
+    font-family: 'Poppins', Poppins, sans-serif;
+}
+/*---- Main init ends here ----*/
+/***************************************************************************************************/
+/* DevEd's CSS for NavBar */
+nav{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    min-height: 10vh;
+    font-family: 'Poppins', Poppins;
+    margin-bottom: 15px;
+}
+
+.nav-links{
+    display: flex;
+    justify-content: space-around;
+    width: 30%;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-size: 14px;
+    margin-bottom: 35px;
+    padding-bottom: 19px;
+    padding: 0px 20px 0px 20px;
+}
+
+ul{
+    list-style: none;
+}
+
+li{
+    text-decoration: none;
+}
+
+.burger div{
+    width: 25px;
+    height: 5px;
+    background-color: white;
+    margin: 3px;
+    padding-top: 0px;
+}
+
+header{
+    display: flex;
+    width: 90%;
+    margin: auto;
+}
+
+/*---- DevEd's CSS for NavBar ends here ----*/
+/***************************************************************************************************/
+/* Dark Code's login system code. Also used for user registration.*/
+.box{
+    width: 260px;
+    padding: 5px 50px 5px 50px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: black;
+    text-align: center;
+}
+
+.box input[type='text'],.box input[type='password']{
+    border: 0px;
+    background: none;
+    display: block;
+    margin: 20px auto;
+    text-align: center;
+    border: 2px solid white;
+    padding: 14px 10px;
+    width: 300px;
+    outline: none;
+    color: white;
+    border-radius: 24px;
+    transition: 0.5s;
+}
+
+.box input[type='text']:focus,.box input[type='password']:focus{
+    width: 350px;
+    border-color: green;
+}
+
+.box input[type='submit']{
+    border: 0px;
+    background: none;
+    display: block;
+    margin: 20px auto;
+    text-align: center;
+    border: 2px solid #3498db;
+    padding: 14px 40px;
+    outline: none;
+    color: white;
+    border-radius: 24px;
+    transition: 0.5s;
+    cursor: pointer;
+}
+
+.box input[type='submit']:hover{
+    background: #2ecc71;
+}
+
+h1{
+    text-align: center;
+    border-bottom: 3px solid white;
+    margin-bottom: 35px;
+}
+
+input{
+    font-size: 17px;
+}
+
+#login-fieldset #register-fieldset{
+    border: 2px dotted white;
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+
+.troubleshoot-page input[type="submit"]{
+    border: 0px;
+    background: none;
+    text-align: center;
+    border: 2px solid #3498db;
+    padding: 14px 40px;
+    outline: none;
+    color: white;
+    border-radius: 24px;
+    transition: 0.5s;
+    cursor: pointer;
+}
+
+input[type='submit']:hover{
+    background: #2ecc71;
+}
+
+/*---- Dark Code's login system code ends here. ----*/
+/***************************************************************************************************/
+/* W3Schools Alert Button code */
+.alert-danger {
+  padding: 20px;
+  background-color: #f44336; /* Red */
+  color: white;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.closebtn {
+  margin-left: 15px;
+  color: white;
+  font-weight: bold;
+  float: right;
+  font-size: 22px;
+  line-height: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.alert-success {
+  padding: 20px;
+  color: white;
+  margin-bottom: 15px;
+  background-color: #32a852;
+}
+
+.danger {
+  padding: 20px;
+  color: white;
+  margin-bottom: 15px;
+  background-color: red;
+}
+
+.alert-success a{
+    visibility: hidden; /* For hiding the troubleshoot link after a successful login. */
+}
+
+/*---- W3Schools Alert Button code ends here ----/*
+/***************************************************************************************************/
+/* Misc code: */
+
+.title-login{
+    margin-bottom: 10px;
+}
+
+a{
+    color: white;
+}
+
+a:visited{
+    color: white;
+}
+
+a:hover{
+    color: #3fc700;
+    border-bottom: 2px dotted green;
+    transition: 1.0s;
+    transition-delay: 0.1s;
+}
+
+a:active{
+    font-size: 14px;
+    color: white;
+}
+
+.invalid-feedback{
+    color: red;
+    margin-bottom: 10px;
+    font-size: 12px;
+}
+
+.spec{
+    color: white;
+    border-bottom: 1px solid white;
+}
+
+.spec:hover{
+    color: white;
+    border-bottom: 2px solid white;
+}
+
+#error-msg-404{
+    text-transform: uppercase;
+    color: red;
+    font-size: 28px;
+    letter-spacing: 2px;
+}
+
+.ml-200{
+    margin-left: 600px;
+}
+
+/*---- Misc code ends here ----*/
+/***********************************************************************************************/
