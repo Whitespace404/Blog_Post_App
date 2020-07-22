@@ -1,6 +1,9 @@
+import os
+from secrets import token_hex
+from PIL import Image
 from flask import render_template, url_for, flash, redirect, request
 from flaskblog import app, db, bcrypt
-from flaskblog.forms import RegistrationForm, LoginForm
+from flaskblog.forms import RegistrationForm, LoginForm, UpdateAccountForm
 from flaskblog.models import User
 from flask_login import login_user, current_user, logout_user, login_required
 
@@ -34,7 +37,7 @@ def register():
 @app.route("/login", methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
-        flash("You are already logged in.", "success")
+        flash("You are already logged in.", "danger")
         return redirect(url_for('home'))
     form = LoginForm()
     if form.validate_on_submit():
@@ -60,7 +63,38 @@ def logout():
     return redirect(url_for('home'))
 
 
-@app.route("/account/")
+def save_picture(form_picture):
+    random_hex = token_hex(16)
+    _, f_extn = os.path.splitext(form_picture.filename)
+    picture_filename = random_hex + f_extn
+    picture_path = os.path.join(app.root_path, 'static/profile_pics', picture_filename)
+
+    final_size = (200, 200)
+    image = Image.open(form_picture)
+    image.thumbnail(final_size)
+    image.save(picture_path)
+
+    return picture_filename
+
+
+@app.route("/account/", methods=["GET", "POST"])
 @login_required
 def account():
-    return render_template('account.html')
+    form = UpdateAccountForm()
+
+    if form.validate_on_submit():
+        if form.picture.data:
+            picture_file = save_picture(form.picture.data)
+            current_user.image_file = picture_file
+        current_user.username = form.username.data
+        current_user.email = form.email.data
+        db.session.commit()
+        flash("Your account has been updated!", "success")
+        return redirect(url_for('account'))
+
+    elif request.method == 'GET':
+        form.username.data = current_user.username
+        form.email.data = current_user.email
+
+    image_file = url_for('static', filename=F'profile_pics/{current_user.image_file}')
+    return render_template('account.html', image_file=image_file, form=form)

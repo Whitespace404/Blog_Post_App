@@ -5,5 +5,77 @@ Your Account
 {% endblock title %}
 
 {% block content %}
-<h1>{{ current_user.username }}</h1>
+
+<div>
+  <div>
+    <img src="{{ image_file }}" alt="Profile Picture">
+    <div>
+      <h1 class="current-user">{{ current_user.username }}</h1>
+      <p class="email-id">{{ current_user.email }}</p>
+    </div>
+    
+  </div>
+</div>
+<!---->
+<div class="" id="update-account">
+    <form method="POST" action="" enctype="multipart/form-data">
+        {{ form.hidden_tag() }}
+        <fieldset class="box" id="update-fieldset">
+            <legend>
+                Modify Account Info
+            </legend>
+            <div class="main-content">
+
+                <div>
+                {{ form.username.label }}
+                {% if form.username.errors %}
+                    {{ form.username(class="invalid-username") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.username.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                    
+
+                {% else %}
+                    {{ form.username }}
+                {% endif %}
+                </div>
+                <div>
+                {{ form.email.label }}
+                {% if form.email.errors %}
+                    {{ form.email(class="invalid-username") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.email.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+
+                {% else %}
+                    {{ form.email }}
+                {% endif %}
+                </div>
+              
+              {{ form.csrf_token }}
+                
+              <div>
+                {{ form.picture.label }}
+                {{ form.picture(class="form-file")}}
+                
+                {% if form.picture.errors %}
+                  {% for error in form.picture.errors %}
+                <br>
+                    <div class="invalid-feedback">{{ error }}</div><br>
+                  {% endfor %}
+                {% endif %}
+              </div>
+            </div>
+        
+        <div>
+            {{ form.submit }}
+        </div>
+        
+        </fieldset>
+    </form>
+</div>
 {% endblock content %}

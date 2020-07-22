@@ -38,6 +38,7 @@ nav{
     margin-bottom: 35px;
     padding-bottom: 19px;
     padding: 0px 20px 0px 20px;
+    margin: 0px 30px 30px 30px;
 }
 
 ul{
@@ -46,6 +47,8 @@ ul{
 
 li{
     text-decoration: none;
+    padding: 10px 10px 10px 10px;
+    align-items: center;
 }
 
 .burger div{
@@ -74,6 +77,7 @@ header{
     transform: translate(-50%, -50%);
     background-color: black;
     text-align: center;
+    margin-top: 40px;
 }
 
 .box input[type='text'],.box input[type='password']{
@@ -88,12 +92,18 @@ header{
     outline: none;
     color: white;
     border-radius: 24px;
-    transition: 0.5s;
+    transition: 0.7s;
 }
 
 .box input[type='text']:focus,.box input[type='password']:focus{
     width: 350px;
-    border-color: green;
+    border-color: #ffab73;
+}
+
+.box input[type='text']:valid,
+.box input[type='password']:valid,
+.box input[type='email']:valid{
+    border-color: #4287f5;
 }
 
 .box input[type='submit']{
@@ -243,5 +253,44 @@ a:active{
     margin-left: 600px;
 }
 
+img{
+    width: 150px;
+    height: 150px;
+    margin-left: 542px;
+    margin-right: 550px;
+    border-radius: 50%;
+    transition: 0.5s;
+}
+
+img:hover{
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.email-id{
+    text-align: center;
+}
+
+.current-user{
+    margin-top: 450px;
+}
+
+.update-account{
+    display: block;
+    margin-top: 500px;
+}
+
+.red-text:hover{
+    color: red;
+    border: none;
+}
+
+.box input[type='file']{
+    transition: 0.5s;
+    text-align: center !important;
+}
+
+input #file-upload-button{
+    text-align: center !important;
+}
 /*---- Misc code ends here ----*/
 /***********************************************************************************************/
