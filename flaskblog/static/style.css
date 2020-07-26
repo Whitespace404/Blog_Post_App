@@ -8,64 +8,214 @@
 }
 
 body{
+    background-color: black;
     background-image: linear-gradient(60deg, #000000, #000001, #000009);
     background-size: 100%;
     color: white;
-    margin-left: 100px;
-    margin-right: 100px;
-    margin-top: 20px;
     font-family: 'Poppins', Poppins, sans-serif;
+    line-height: 1.4;
 }
 /*---- Main init ends here ----*/
-/***************************************************************************************************/
-/* DevEd's CSS for NavBar */
-nav{
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    min-height: 10vh;
-    font-family: 'Poppins', Poppins;
-    margin-bottom: 15px;
+/***************************************************************************************/
+/* Traversy Media's CSS for NavBar */
+:root{
+    --primary-color: rgba(13, 110, 139, 0.75);
+    --overlay-color: rgba(24, 39, 51, 0.85);
+    --menu-speed: 0.75s;
 }
 
-.nav-links{
-    display: flex;
-    justify-content: space-around;
-    width: 30%;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    font-size: 14px;
-    margin-bottom: 35px;
-    padding-bottom: 19px;
-    padding: 0px 20px 0px 20px;
-    margin: 0px 30px 30px 30px;
-}
-
-ul{
-    list-style: none;
-}
-
-li{
-    text-decoration: none;
-    padding: 10px 10px 10px 10px;
-    align-items: center;
-}
-
-.burger div{
-    width: 25px;
-    height: 5px;
-    background-color: white;
-    margin: 3px;
-    padding-top: 0px;
-}
-
-header{
-    display: flex;
-    width: 90%;
+.container{
+    max-width: 960px;
     margin: auto;
+    overflow: hidden;
+    padding: 0 3rem;
 }
 
-/*---- DevEd's CSS for NavBar ends here ----*/
+.showcase {
+    background-color: var(--primary-color);
+    color: #fff;
+    height: 100vh;
+    position: relative;
+    margin: 0px;
+    padding: 0px;
+}
+
+.showcase:before {
+    content: '';
+    background: url('img/homepage-bg.jpg') no-repeat center center/cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+.showcase .showcase-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    height: 100%;
+}
+
+.showcase h1{
+    font-size: 4rem;
+}
+
+.showcase p{
+    font-size: 1.3rem;
+}
+
+.btn {
+    display: inline-block;
+    border: none;
+    text-decoration: none;
+    background-color: var(--primary-color);
+    padding: 0.75rem 1.5rem;
+    color: white;
+    margin-top: 1rem;
+    transition: .5s ease-in;
+}
+
+.btn:hover{
+    opacity: 0.7;
+}
+
+.menu-wrap{
+    position: fixed;
+    top: 0; left: 0;
+    z-index: 1;
+}
+
+.menu-wrap .toggler{
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    cursor: pointer;
+    width: 50px;
+    height: 50px;
+    opacity: 0;
+}
+
+.menu-wrap .hamburger{
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    width: 60px;
+    height: 60px;
+    padding: 1rem;
+    background: var(--primary-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.menu-wrap .hamburger > div {
+    position: relative;
+    width: 100%;
+    height: 2px;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.4s ease;
+}
+
+.menu-wrap .hamburger > div:before,
+.menu-wrap .hamburger > div:after{
+    content: '';
+    position: absolute;
+    z-index: 1;
+    top: -10px;
+    width: 100%;
+    height: 2px;
+    background: inherit;
+}
+
+.menu-wrap .hamburger > div:after{
+    top: 10px;
+}
+
+.menu-wrap .toggler:checked + .hamburger > div {
+    transform: rotate(135deg);
+}
+
+.menu-wrap .toggler:checked + .hamburger > div:before,
+.menu-wrap .toggler:checked + .hamburger > div:after{
+    top: 0;
+    transform: rotate(90deg);
+}
+
+.menu-wrap .toggler:checked:hover + .hamburger > div {
+    transform: rotate(225deg);
+}
+
+.menu-wrap .toggler:checked ~ .menu {
+    visibility: visible;
+}
+
+.menu-wrap .toggler:checked ~ .menu > div{
+    transform: scale(1);
+    transition-duration: var(--menu-speed);
+}
+
+.menu-wrap .toggler:checked ~ .menu > div > div {
+    opacity: 1;
+    transition: 0.4 ease;
+}
+
+.menu-wrap .menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    visibility: hidden;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.menu-wrap .menu > div {
+    background: var(--overlay-color);
+    border-radius: 50%;
+    width: 200vw;
+    height: 200vw;
+    display: flex;
+    flex: none;
+    align-items: center;
+    justify-content: center;
+    transform: scale(0);
+    transition: all 0.4s ease;
+}
+
+.menu-wrap .menu > div > div {
+    text-align: center;
+    max-width: 90vw;
+    max-height: 100vh;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.menu-wrap .menu > div > div > ul > li {
+    list-style: none;
+    color: white;
+    font-size: 1.5rem;
+    padding: 1rem;
+}
+
+.menu-wrap .menu > div > div > ul > li > a{
+    color: inherit;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+/*---- Traversy Media's CSS for NavBar ends here ----*/
 /***************************************************************************************************/
 /* Dark Code's login system code. Also used for user registration.*/
 .box{
@@ -125,14 +275,43 @@ header{
     background: #2ecc71;
 }
 
-h1{
+.button {
+    border: 0px;
+    background: none;
+    display: block;
     text-align: center;
-    border-bottom: 3px solid white;
-    margin-bottom: 35px;
+    border: 2px solid #3498db;
+    padding: 14px 0px;
+    outline: none;
+    color: white;
+    border-radius: 24px;
+    transition: 0.5s;
+    cursor: pointer;
+    margin-top: 5px;
 }
 
-input{
-    font-size: 17px;
+.button:hover{
+    background: #2ecc71;
+}
+
+.danger-button {
+    border: 0px;
+    margin-top: 5px;
+    background: none;
+    display: block;
+    text-align: center;
+    border: 2px solid #3498db;
+    padding: 14px 375px;
+    margin-top: 20px;
+    outline: none;
+    color: white;
+    border-radius: 24px;
+    transition: 0.5s;
+    cursor: pointer;
+}
+
+.danger-button:hover{
+    background: red;
 }
 
 #login-fieldset #register-fieldset{
@@ -165,8 +344,8 @@ input[type='submit']:hover{
   padding: 20px;
   background-color: #f44336; /* Red */
   color: white;
-  margin-bottom: 15px;
   text-align: center;
+  margin-left: 65px;
 }
 
 .closebtn {
@@ -183,8 +362,16 @@ input[type='submit']:hover{
 .alert-success {
   padding: 20px;
   color: white;
-  margin-bottom: 15px;
   background-color: #32a852;
+  margin-left: 65px;
+}
+
+.alert-warning {
+  padding: 20px;
+  background-color: #eb8c34; /* Orange */
+  color: white;
+  text-align: center;
+  margin-left: 62px;
 }
 
 .danger {
@@ -199,29 +386,39 @@ input[type='submit']:hover{
 }
 
 /*---- W3Schools Alert Button code ends here ----/*
-/***************************************************************************************************/
-/* Misc code: */
+/**********************************************************************************************/
+/* My code: */
 
 .title-login{
     margin-bottom: 10px;
 }
 
-a{
+h1{
+    text-align: center;
+    border-bottom: 3px solid white;
+    margin-bottom: 35px;
+}
+
+input{
+    font-size: 17px;
+}
+
+.box a{
     color: white;
 }
 
-a:visited{
+.box a:visited{
     color: white;
 }
 
-a:hover{
+.box a:hover{
     color: #3fc700;
     border-bottom: 2px dotted green;
     transition: 1.0s;
     transition-delay: 0.1s;
 }
 
-a:active{
+.box a:active{
     font-size: 14px;
     color: white;
 }
@@ -242,27 +439,20 @@ a:active{
     border-bottom: 2px solid white;
 }
 
-#error-msg-404{
-    text-transform: uppercase;
-    color: red;
-    font-size: 28px;
-    letter-spacing: 2px;
-}
-
 .ml-200{
     margin-left: 600px;
 }
 
-img{
-    width: 150px;
-    height: 150px;
+.profile-pic {
+    width: 135px;
+    height: 135px;
     margin-left: 542px;
     margin-right: 550px;
     border-radius: 50%;
     transition: 0.5s;
 }
 
-img:hover{
+.profile-pic:hover {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
@@ -286,11 +476,97 @@ img:hover{
 
 .box input[type='file']{
     transition: 0.5s;
-    text-align: center !important;
+    text-align: center;
 }
 
 input #file-upload-button{
-    text-align: center !important;
+    text-align: center;
 }
-/*---- Misc code ends here ----*/
+
+.email-id{
+    width: auto;
+    text-align: center;
+}
+
+.create-post-link{
+    margin-left: 500px;
+    margin-right: 500px;
+    margin-top: 100px;
+    height: 400px;
+    min-height: 400px;
+    color: none;
+    border-bottom: none;
+    transition: none;
+    transition-delay: none;
+}
+
+.special{
+    font-family: Didot;
+    font-size: 26px;
+    width: 950px;
+    height: 450px;
+}
+
+.viewpost-scroll{
+    padding: 12px;
+    border: none;
+    background-color: #3498db;
+    color: black;
+    text-decoration: none;
+}
+
+.viewpost-scroll:hover{
+    text-decoration: none;
+    border: none;
+    color: black;
+    padding: 13px;
+}
+
+article {
+    margin-left: 50px;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    border: 2px solid #222;
+    padding: 20px;
+    margin-right: 190px;
+}
+
+.post-title{
+    color: white;
+    padding-bottom: 10px;
+    border-bottom: 1px solid white;
+    transition: 0.2s;
+}
+
+.post-title:hover{
+    color: #ffe;
+    text-decoration: underline;
+    font-weight: 900;
+}
+
+.post-content{
+    color: white;
+}
+
+.post-content:hover {
+    color: white;
+}
+
+.rounded-profile-pic{
+    border-radius: 50%;
+    margin-left: 20px;
+    width: 115px;
+    height: 115px;
+}
+
+.post-author{
+    color: white;
+}
+
+hr {
+    margin: 10px;
+    margin-bottom: 25px;
+}
+
+/*---- My code ends here ----*/
 /***********************************************************************************************/

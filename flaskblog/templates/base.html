@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -10,18 +10,29 @@
 
 
 <nav>
-    <ul class="nav-links">
-        <li id="ml-200"> <a href=" {{ url_for('home') }} "> Home </a> </li>
-    {% if current_user.is_authenticated %}
-        <li><a href=" {{ url_for('account') }}"> Account </a></li>
-        <li><a href=" {{ url_for('logout') }} " class="red-text"> Logout </a></li>
-    {% else %}
-        <li><a href=" {{ url_for('login') }} "> Login </a></li>
-        <li><a href=" {{ url_for('register')}} "> Register </a></li>
-    {% endif %}
-    </ul>
-</nav>
+    <div class="menu-wrap">
+        <input type="checkbox" class="toggler" />
+        <div class="hamburger"><div></div></div>
 
+        <div class="menu">
+            <div>
+                <div>
+                    <ul>
+                        <li id="ml-200"> <a href=" {{ url_for('home') }} "> Home </a> </li>
+                        {% if current_user.is_authenticated %}
+                            <li><a href=" {{ url_for('account') }}"> Account </a></li>
+                            <li><a href=" {{ url_for('logout') }} " class="red-text"> Logout </a></li>
+                            <li><a href=" {{ url_for('new_post') }} "> Create Post </a></li>
+                        {% else %}
+                            <li><a href=" {{ url_for('login') }} "> Login </a></li>
+                            <li><a href=" {{ url_for('register')}} "> Register </a></li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
     {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
             {% for category, message in messages %}
@@ -34,5 +45,6 @@
         {% endif %}
     {% endwith %}
     {% block content %}{% endblock content %}
+
 </body>
 </html>
