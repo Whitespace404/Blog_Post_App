@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %} Forgot your Password? {% endblock title %}
+{% block content %}
+<div class="main">
+    <form method="POST" action="">
+        {{ form.hidden_tag() }}
+        <fieldset class="box" id="login-fieldset">
+            <legend>
+                Forgot Your Password?
+            </legend>
+            <div class="login">
+                <div class="email">
+                {{ form.email.label }}
+                {% if form.email.errors %}
+                    {{ form.email(class="invalid-username") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.email.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.email }}
+                {% endif %}
+                    </div>
+            </div>
+            <div class="submit-btn">
+            {{ form.submit }}
+            </div>
+        </fieldset>
+    </form>
+</div>
+{% endblock %}

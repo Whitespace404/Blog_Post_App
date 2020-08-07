@@ -3,15 +3,7 @@
 {% block title %}Home{% endblock title %}
 
 {% block content %}
-
-<div class="main">
-    <header class="showcase">
-        <div class="container showcase-inner">
-            <h1>Welcome to Blogger</h1>
-            <a href="#posts" class="viewpost-scroll">View Posts..</a>
-        </div>
-    </header>
-
+<h1> All Posts by {{ user.username }}. ({{ posts.total }})</h1>
     <div id="posts" class="main">
     {% for post in posts.items %}
         <article class="main">
@@ -29,9 +21,9 @@
         {% for page_num in posts.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
             {% if page_num %}
                 {% if posts.page == page_num %}
-                    <a class="current-button" href="{{ url_for('home', page=page_num) }}">{{ page_num }}</a>
+                    <a class="current-button" href="{{ url_for('user_post', page=page_num, username=user.username) }}">{{ page_num }}</a>
                 {% else %}
-                    <a class="pagination-btn" href="{{ url_for('home', page=page_num) }}">{{ page_num }}</a>
+                    <a class="pagination-btn" href="{{ url_for('user_post', page=page_num, username=user.username) }}">{{ page_num }}</a>
                 {% endif %}
             {% else %}
                 <span>...</span>

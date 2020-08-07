@@ -15,9 +15,13 @@ body{
     font-family: 'Poppins', Poppins, sans-serif;
     line-height: 1.4;
 }
+
+html {
+    scroll-behavior: smooth !important;
+}
 /*---- Main init ends here ----*/
 /***************************************************************************************/
-/* Traversy Media's CSS for NavBar */
+/* Traversy Media's CSS for NavBar and loaders */
 :root{
     --primary-color: rgba(13, 110, 139, 0.75);
     --overlay-color: rgba(24, 39, 51, 0.85);
@@ -214,7 +218,6 @@ body{
     text-decoration: none;
     transition: color 0.3s ease;
 }
-
 /*---- Traversy Media's CSS for NavBar ends here ----*/
 /***************************************************************************************************/
 /* Dark Code's login system code. Also used for user registration.*/
@@ -294,7 +297,7 @@ body{
     background: #2ecc71;
 }
 
-.danger-button {
+form .danger-button {
     border: 0px;
     margin-top: 5px;
     background: none;
@@ -310,8 +313,8 @@ body{
     cursor: pointer;
 }
 
-.danger-button:hover{
-    background: red;
+form .danger-button:hover{
+    background: red !important;
 }
 
 #login-fieldset #register-fieldset{
@@ -500,7 +503,7 @@ input #file-upload-button{
     transition-delay: none;
 }
 
-.special{
+.special {
     font-family: Didot;
     font-size: 26px;
     width: 950px;
@@ -569,4 +572,4 @@ hr {
 }
 
 /*---- My code ends here ----*/
-/***********************************************************************************************/
+/************************************************************************************/

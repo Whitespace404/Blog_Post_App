@@ -2,16 +2,37 @@ import os
 from secrets import token_hex
 from PIL import Image
 from flask import render_template, url_for, flash, redirect, request, abort
-from flaskblog import app, db, bcrypt
-from flaskblog.forms import RegistrationForm, LoginForm, UpdateAccountForm, PostForm
+from flaskblog import app, db, bcrypt, mail
+from flaskblog.forms import (RegistrationForm,
+    LoginForm, UpdateAccountForm, PostForm,
+    ChangePasswordForm, RequestResetForm)
 from flaskblog.models import User, Post
 from flask_login import login_user, current_user, logout_user, login_required
+from flask_mail import Message
+
+
+def send_reset_email(user):
+    try:
+        user_manager = User()
+        token = user_manager.get_reset_token(expires_sec=1800)
+        msg = Message("Password Reset -- FlaskBlog", sender='noreply@demo.com',\
+                      recipients=[user.email])
+        msg.body = F''' To reset your password visit, 
+    {url_for('reset_token', token=token, _external=True)}
+    
+    If you did not initiate this request, ignore this email and no changes
+    will be made to your Flaskblog Account.'''
+
+        mail.send(msg)
+    except Exception as e:
+        flash(e, 'danger')
 
 
 @app.route("/")
 @app.route("/home")
 def home():
-    posts = Post.query.all()
+    page = request.args.get('page', 1, type=int)
+    posts = Post.query.order_by(Post.date_posted.desc()).paginate(page=page, per_page=5)
     return render_template('index.html', posts=posts)
 
 
@@ -24,12 +45,8 @@ def register():
     if form.validate_on_submit():
         hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
         user = User(username=form.username.data, email=form.email.data, password=hashed_password)
-        try:
-            db.session.add(user)
-            db.session.commit()
-        except:
-            db.session.rollback()
-            print('-===-====-==== AN ERROR OCCURRED! =====-====-====')
+        db.session.add(user)
+        db.session.commit()
         flash('Your account has been created! You are now able to log in', 'success')
         return redirect(url_for('login'))
     return render_template('register.html', form=form)
@@ -156,3 +173,50 @@ def delete_post(post_id):
 
     flash("Your post has been deleted successfully.", 'warning')
     return redirect(url_for("home"))
+
+@app.route("/user/<string:username>")
+def user_post(username):
+    page = request.args.get('page', 1, type=int)
+    user = User.query.filter_by(username=username).first_or_404()
+    posts = Post.query.filter_by(author=user)\
+        .order_by(Post.date_posted.desc())\
+        .paginate(page=page, per_page=5)
+    return render_template('user_post.html', posts=posts, user=user)
+
+@app.route('/reset_password/', methods=['GET', 'POST'])
+def reset_request():
+    if current_user.is_authenticated:
+        flash("You are already logged in.", "warning")
+        return redirect(url_for('home'))
+    form = RequestResetForm()
+
+    if form.validate_on_submit():
+        user = User.query.filter_by(email=form.email.data).first()
+        send_reset_email(user=user)
+        flash("An email has been sent with instructions to reset your password.", "success")
+        return redirect(url_for('login'))
+
+    return render_template('reset_request.html', form=form)
+
+
+@app.route('/reset_password/<token>', methods=['GET', 'POST'])
+def reset_token(token):
+    if current_user.is_authenticated:
+        flash("You are already logged in.", "warning")
+        return redirect(url_for('home'))
+    user = User.verify_reset_token(token=token)
+
+    if not user:
+        flash("Your password reset request has expired. Create one again.")
+        return redirect(url_for('reset_request'))
+
+    form = ChangePasswordForm()
+
+    if form.validate_on_submit():
+        hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
+        user.password = hashed_password
+        db.session.commit()
+        flash('Your password has been updated successfully. You can log in now.', 'success')
+        return redirect(url_for('login'))
+
+    return render_template('reset_token.html', form=form)

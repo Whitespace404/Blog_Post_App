@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% block title %}Login{% endblock title %}
 {% block content %}
+<div class="main">
     <form method="POST" action="">
         {{ form.hidden_tag() }}
         <fieldset class="box" id="login-fieldset">
@@ -41,15 +42,14 @@
                 {{ form.remember.label(class="form-check-input") }}
               </div><br>
               <small>
-                <a href="{{ url_for('register') }}">Need an Account? Sign Up!</a>
+                <a href="{{ url_for('register') }}">Need an Account? Sign Up!</a><br>
+                  <a href="{{ url_for('reset_request') }}"> Forgot Your Password? </a>
               </small>
             </div>
             <div class="submit-btn">
             {{ form.submit }}
             </div>
-            </div>
-        </fieldset>
-
     </form>
-
+    </fieldset>
+</div>
 {% endblock %}

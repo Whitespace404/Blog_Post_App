@@ -9,6 +9,7 @@
                 <legend class="border-bottom mb-4">Join Today</legend>
                 <div class="form-group">
 -->
+<div class="main">
 <div class="content-section">
     <form method="POST" action="">
         {{ form.hidden_tag() }}
@@ -27,7 +28,7 @@
                             <span>{{ error }}</span>
                         {% endfor %}
                     </div>
-                    
+
 
                 {% else %}
                     {{ form.username }}
@@ -78,19 +79,20 @@
                 {% endif %}
                 </div>
 
-            
+
         <small><a href="{{ url_for('login') }}">Already Have An Account? Login!</a></small>
-        
+
         <div>
             {{ form.submit }}
         </div>
-            
+
             <small>
                 <a href="#">Forgot Your Password?</a><br><br>
             </small>
-            
-            
+
+
         </fieldset>
     </form>
+</div>
 </div>
 {% endblock %}

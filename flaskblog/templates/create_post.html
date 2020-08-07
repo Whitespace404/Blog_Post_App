@@ -2,46 +2,48 @@
 
 {% block title %}Create A Post{% endblock title %}
 {% block content %}
-<form method="POST" action="">
-    {{ form.hidden_tag() }}
-    <fieldset class="box" id="login-fieldset">
-        <legend>
-            {{ legend }}
-        </legend>
-        <div class="login">
-            <div class="email">
-            {{ form.title.label }}
-            {% if form.title.errors %}
-                {{ form.title(class="invalid-title") }}
-                <div class="invalid-feedback">
-                    {% for error in form.title.errors %}
-                        <span>{{ error }}</span>
-                    {% endfor %}
-                </div>
+<div class="main">
+    <form method="POST" action="">
+        {{ form.hidden_tag() }}
+        <fieldset class="box" id="login-fieldset">
+            <legend>
+                {{ legend }}
+            </legend>
+            <div class="login">
+                <div class="email">
+                {{ form.title.label }}
+                {% if form.title.errors %}
+                    {{ form.title(class="invalid-title") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.title.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
 
 
-            {% else %}
-                {{ form.title }}
-            {% endif %}
+                {% else %}
+                    {{ form.title }}
+                {% endif %}
+                    </div>
+                <div class="content">
+                {{ form.content.label }}
+                {% if form.content.errors %}
+                    {{ form.content(class="invalid-feedback") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.content.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.content(class="special") }}
+                {% endif %}
                 </div>
-            <div class="content">
-            {{ form.content.label }}
-            {% if form.content.errors %}
-                {{ form.content(class="invalid-feedback") }}
-                <div class="invalid-feedback">
-                    {% for error in form.content.errors %}
-                        <span>{{ error }}</span>
-                    {% endfor %}
-                </div>
-            {% else %}
-                {{ form.content(class="special") }}
-            {% endif %}
+            <div class="submit-btn">
+                {{ form.submit }}
             </div>
-        <div class="submit-btn">
-            {{ form.submit }}
-        </div>
 
-    </div>
-</fieldset>
-</form>
+        </div>
+    </fieldset>
+    </form>
+</div>
 {% endblock content %}
