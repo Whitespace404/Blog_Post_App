@@ -12,20 +12,17 @@ from flask_mail import Message
 
 
 def send_reset_email(user):
-    try:
-        user_manager = User()
-        token = user_manager.get_reset_token(expires_sec=1800)
-        msg = Message("Password Reset -- FlaskBlog", sender='noreply@demo.com',\
-                      recipients=[user.email])
-        msg.body = F''' To reset your password visit, 
+    user_manager = User()
+    token = user_manager.get_reset_token(expires_sec=1800)
+    msg = Message("Password Reset -- FlaskBlog", sender='noreply@demo.com',
+                  recipients=[user.email])
+    msg.body = F''' To reset your password visit, 
     {url_for('reset_token', token=token, _external=True)}
-    
+
     If you did not initiate this request, ignore this email and no changes
     will be made to your Flaskblog Account.'''
 
-        mail.send(msg)
-    except Exception as e:
-        flash(e, 'danger')
+    mail.send(msg)
 
 
 @app.route("/")
@@ -57,9 +54,12 @@ def login():
     if current_user.is_authenticated:
         flash("You are already logged in.", "warning")
         return redirect(url_for('home'))
+
     form = LoginForm()
+
     if form.validate_on_submit():
         user = User.query.filter_by(username=form.username.data).first()
+
         if user and bcrypt.check_password_hash(user.password, form.password.data):
             login_user(user, remember=form.remember.data)
             next_page = request.args.get('next')
@@ -201,13 +201,14 @@ def reset_request():
 
 @app.route('/reset_password/<token>', methods=['GET', 'POST'])
 def reset_token(token):
+
     if current_user.is_authenticated:
         flash("You are already logged in.", "warning")
         return redirect(url_for('home'))
     user = User.verify_reset_token(token=token)
 
     if not user:
-        flash("Your password reset request has expired. Create one again.")
+        flash("Your password reset request has expired. Create one again.", "warning")
         return redirect(url_for('reset_request'))
 
     form = ChangePasswordForm()
