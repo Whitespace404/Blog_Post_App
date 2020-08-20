@@ -18,7 +18,7 @@
             <a href="{{ url_for('post', post_id=post.id )}}"><img src="{{ url_for('static', filename='profile_pics/' + post.author.image_file) }}"
                     class="rounded-profile-pic"></a>
             <a href="{{ url_for('post', post_id=post.id )}}" class="post-title"><h2>{{ post.title }}</h2> </a>
-            <div class="post-content">{{ post.content }}</div>
+            <pre class="post-content">{{ post.content }}</pre>
             <br>
             <hr>
             <a href="{{ url_for('user_post', username=post.author.username) }}" class="post-author"><h6>| Written by {{ post.author.username }} on {{ post.date_posted.strftime('%Y-%m-%d') }}.

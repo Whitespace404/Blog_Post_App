@@ -47,7 +47,7 @@ html {
 
 .showcase:before {
     content: '';
-    background: url('img/homepage-bg.jpg') no-repeat center center/cover;
+    background: url('img/homepage-bg.png') no-repeat center center/cover;
     position: absolute;
     top: 0;
     left: 0;
@@ -549,8 +549,14 @@ article {
     font-weight: 900;
 }
 
-.post-content{
+.post-content {
     color: white;
+}
+
+pre {
+    line-height: 1.7em;
+    max-width: 30ch !important;
+    color: red;
 }
 
 .post-content:hover {
