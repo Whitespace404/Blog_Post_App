@@ -20,8 +20,12 @@
         </form>
       </div>
     {% endif %}
+
+    {% if validated %}
+        <a href="{{ url_for('validate_post', post_id=post.id)}}" class="admin-validate-post">Validate this post</a>
+    {% else %}
+
+    {% endif %}
   </article>
 </div>
-
-
 {% endblock content %}

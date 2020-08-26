@@ -40,7 +40,8 @@ class Post(db.Model):
     title = db.Column(db.String(), nullable=False)
     date_posted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     content = db.Column(db.Text, nullable=False)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)	
+    is_verified = db.Column(db.Boolean, default=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
     def __repr__(self):
         return F"[POST] {self.id} posted {self.title} on {self.date_posted}"

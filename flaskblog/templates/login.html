@@ -40,7 +40,17 @@
               <div class="checkbox">
                 {{ form.remember(class="form-check-input") }}
                 {{ form.remember.label(class="form-check-input") }}
-              </div><br>
+              </div>
+                <br>
+                <div class="recaptcha">
+                {{ form.recaptcha }}
+                     <div class="invalid-feedback">
+                        {% for error in form.recaptcha.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+              </div>
+                <br>
               <small>
                 <a href="{{ url_for('register') }}">Need an Account? Sign Up!</a><br>
                   <a href="{{ url_for('reset_request') }}"> Forgot Your Password? </a>

@@ -14,6 +14,8 @@ app.config['MAIL_PORT'] = 587
 app.config['MAIL_USE_TLS'] = True
 app.config['MAIL_USERNAME'] = os.environ.get('EMAIL_ID')
 app.config["MAIL_PASSWORD"] = os.environ.get('EMAIL_PWD')
+app.config['RECAPTCHA_PUBLIC_KEY'] = '6Leki68ZAAAAAAblHuBeK2IdglQvnK8aVuWSqc9x'
+app.config['RECAPTCHA_PRIVATE_KEY'] = '6Leki68ZAAAAAL2YM69Aby_XaSj3REMsxJxo0sv7'
 
 # Instances
 db = SQLAlchemy(app)

@@ -53,26 +53,21 @@
                             {{ form.email }}
                         {% endif %}
                         </div>
-
-                      {{ form.csrf_token }}
-
+                        
                       <div>
                         {{ form.picture.label }}
                         {{ form.picture(class="form-file")}}
-
                         {% if form.picture.errors %}
                           {% for error in form.picture.errors %}
                         <br>
-                            <div class="invalid-feedback">{{ error }}</div><br>
+                            <div class="invalid-feedback picture">{{ error }}</div>
                           {% endfor %}
                         {% endif %}
                       </div>
                     </div>
-
-                <div>
-                    {{ form.submit }}
-                </div>
-
+                    <div>
+                        {{ form.submit }}
+                    </div>
                 </fieldset>
             </form>
         </div>

@@ -1,4 +1,4 @@
-from flask_wtf import FlaskForm
+from flask_wtf import FlaskForm, RecaptchaField
 from flask_wtf.file import FileField, FileAllowed
 from flask_login import current_user
 from wtforms import StringField, PasswordField, SubmitField, BooleanField
@@ -35,6 +35,7 @@ class LoginForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired()])
     password = PasswordField('Password', validators=[DataRequired()])
     remember = BooleanField('Remember Me')
+    recaptcha = RecaptchaField()
     submit = SubmitField('Login')
 
 
@@ -43,7 +44,7 @@ class UpdateAccountForm(FlaskForm):
                            validators=[DataRequired(), Length(min=2, max=20)])
     email = StringField('Email',
                         validators=[DataRequired(), Email()])
-    picture = FileField('Update Profile Picture', validators=[FileAllowed(['jpg', 'png'])])
+    picture = FileField('Update Profile Picture', validators=[FileAllowed(['jpg', 'png', 'jpeg'])])
     submit = SubmitField('Update')
 
     def validate_username(self, username):
@@ -67,6 +68,7 @@ class PostForm(FlaskForm):
 
 class RequestResetForm(FlaskForm):
     email = StringField("Email", validators=[DataRequired(), Email()])
+    recaptcha = RecaptchaField()
     submit = SubmitField("Request a Password Reset.")
 
     def validate_email(self, email):
@@ -80,6 +82,6 @@ class ChangePasswordForm(FlaskForm):
     submit = SubmitField("Change my Password.")
 
 
-class ReplyPostForm(FlaskForm):
-    content = TextAreaField("Content", validators=[DataRequired(), Length(max=100)])
-    submit = SubmitField("Reply")
+class VerifyPostForm(FlaskForm):
+    verify = BooleanField("Verify this post?")
+    save_changes = SubmitField("Save Changes")

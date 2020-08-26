@@ -1,11 +1,11 @@
 import os
 from secrets import token_hex
 from PIL import Image
-from flask import render_template, url_for, flash, redirect, request, abort
+
+from flask import (render_template, url_for, flash,
+                 redirect, request, abort)
 from flaskblog import app, db, bcrypt, mail
-from flaskblog.forms import (RegistrationForm,
-    LoginForm, UpdateAccountForm, PostForm,
-    ChangePasswordForm, RequestResetForm)
+from flaskblog.forms import *
 from flaskblog.models import User, Post
 from flask_login import login_user, current_user, logout_user, login_required
 from flask_mail import Message
@@ -16,10 +16,8 @@ def send_reset_email(user):
     msg = Message('Password Reset Request',
                   sender='noreply@demo.com',
                   recipients=[user.email])
-    msg.body = f'''To reset your password, visit the following link:
-{url_for('reset_token', token=token, _external=True)}
-
-If you did not make this request then simply ignore this email and no changes will be made.
+    msg.html = F'''
+            <a href="{url_for('reset_token', token=token, _external=True)}">
 '''
     mail.send(msg)
 
@@ -131,11 +129,17 @@ def new_post():
         return redirect(url_for('home'))
     return render_template("create_post.html", form=form, legend="Update Post")
 
+# ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 @app.route("/post/<int:post_id>/view")
 @login_required
 def post(post_id):
     post = Post.query.get_or_404(post_id)
-    return render_template("post.html", post=post)
+
+    if current_user.username == "__FLASKBLOG_ADMIN__":
+        validated = True
+
+    return render_template("post.html", post=post, validated=validated)
+
 
 @app.route("/post/<int:post_id>/update", methods=["GET", "POST"])
 @login_required
@@ -170,8 +174,9 @@ def delete_post(post_id):
     db.session.delete(post)
     db.session.commit()
 
-    flash("Your post has been deleted successfully.", 'warning')
+    flash("Your post has been deleted successfully.", 'success')
     return redirect(url_for("home"))
+
 
 @app.route("/user/<string:username>")
 def user_post(username):
@@ -181,6 +186,7 @@ def user_post(username):
         .order_by(Post.date_posted.desc())\
         .paginate(page=page, per_page=5)
     return render_template('user_post.html', posts=posts, user=user)
+
 
 @app.route("/reset_password", methods=['GET', 'POST'])
 def reset_request():
@@ -213,4 +219,21 @@ def reset_token(token):
         flash('Your password has been updated! You are now able to log in', 'success')
         return redirect(url_for('login'))
     return render_template('reset_token.html', title='Reset Password', form=form)
+
+
+@login_required
+@app.route('/validate_post/<int:post_id>', methods=["GET", "POST"])
+def validate_post(post_id):
+    if current_user.username != "__FLASKBLOG_ADMIN__":
+        abort(403)
+
+    elif current_user.username == "__FLASKBLOG_ADMIN__":
+        form = VerifyPostForm()
+        post = Post.query.get_or_404(post_id)
+        validated = True
+
+    if form.validate_on_submit():
+        pass
+
+    return render_template("verify_post.html", form=form)
 
