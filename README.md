@@ -1,4 +1,4 @@
-# Blog_Post_App
+# Blog Post App
 
 ### How to clone repository (For MacOS):-
 ## Prerequisites
