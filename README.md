@@ -1,6 +1,18 @@
 # Blog_Post_App
 
 ### How to clone repository (For MacOS):-
+## Prerequisites
+
+## 1) Python 3.6+
+Download from [here](https://www.python.org/)
+
+Mac already comes with __Python2__. This version of Python is not supported by this application.
+You will have to download a version of Python that is higher than __Python 3.6__. If you want
+to check which version of Python 3.x you have, simply type in:
+
+```bash
+python3 --version
+```
 
 ```bash
 git clone https://github.com/Whitespace404/Blog_Post_App.git
