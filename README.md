@@ -1,7 +1,6 @@
 # Blog_Post_App
 
-<br><br>
-### Requirements to clone repository (For MacOS):-
+### How to clone repository (For MacOS):-
 
 ```bash
 git clone https://github.com/Whitespace404/Blog_Post_App.git
