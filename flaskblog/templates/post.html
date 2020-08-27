@@ -21,10 +21,22 @@
       </div>
     {% endif %}
 
-    {% if validated %}
-        <a href="{{ url_for('validate_post', post_id=post.id)}}" class="admin-validate-post">Validate this post</a>
-    {% else %}
+    {% if post.is_verified %}
+      <input type="checkbox" id="verified" disabled checked>
+      <label for="verified"> Verified Post </label>
 
+    {% else %}
+      <input type="checkbox" name="verified" id="verified" disabled>
+      <label for="verified"> This post is yet to be verified by the admin</label>
+    {% endif %}
+
+    <br><br>
+
+    {% if post.is_verified and validated %}
+        <a href="#"> This post is already verified </a>
+        <a href="{{ url_for('validate_post', post_id=post.id)}}" class="admin-validate-post" style="visibility: hidden;">Validate this post</a>
+    {% elif not post.is_verified and validated %}
+        <a href="{{ url_for('validate_post', post_id=post.id)}}" class="admin-validate-post" style="visibility: visible;">Validate this post</a>
     {% endif %}
   </article>
 </div>

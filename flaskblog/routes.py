@@ -1,7 +1,6 @@
 import os
 from secrets import token_hex
 from PIL import Image
-
 from flask import (render_template, url_for, flash,
                  redirect, request, abort)
 from flaskblog import app, db, bcrypt, mail
@@ -129,10 +128,11 @@ def new_post():
         return redirect(url_for('home'))
     return render_template("create_post.html", form=form, legend="Update Post")
 
-# ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
 @app.route("/post/<int:post_id>/view")
 @login_required
 def post(post_id):
+    validated = False
     post = Post.query.get_or_404(post_id)
 
     if current_user.username == "__FLASKBLOG_ADMIN__":
@@ -157,9 +157,11 @@ def update_post(post_id):
         db.session.commit()
         flash("Your post has been updated successfully", "success")
         return redirect(url_for('post', post_id=post.id))
+
     elif request.method == "GET":
         form.title.data = post.title
         form.content.data = post.content
+
     return render_template("create_post.html", form=form, legend="Update Post")
 
 
@@ -224,16 +226,20 @@ def reset_token(token):
 @login_required
 @app.route('/validate_post/<int:post_id>', methods=["GET", "POST"])
 def validate_post(post_id):
+    post = Post.query.get_or_404(post_id)
     if current_user.username != "__FLASKBLOG_ADMIN__":
         abort(403)
 
     elif current_user.username == "__FLASKBLOG_ADMIN__":
-        form = VerifyPostForm()
-        post = Post.query.get_or_404(post_id)
         validated = True
 
-    if form.validate_on_submit():
-        pass
+    form = VerifyPostForm()
 
-    return render_template("verify_post.html", form=form)
+    if form.validate_on_submit():
+        post.is_verified = form.verify.data
+        db.session.commit()
+        flash("That post has been verified.", "success")
+        return redirect(url_for("home"))
+
+    return render_template("verify_post.html", form=form, post=post)
 

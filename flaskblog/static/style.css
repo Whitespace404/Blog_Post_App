@@ -6,23 +6,16 @@
     box-sizing: border-box;
     font-family: Poppins, 'Poppins', Helveltica, sans-serif;
     text-decoration: none;
-
-    /*-webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    -webkit-tap-highlight-color: transparent;*/
-    -webkit-tap-highlight-color:  rgba(255, 255, 255, 0);
+    color: white;
 }
 
-*::selection {
-    background-color: black;
-    color: #32a852;
+textarea {
+    color: black;
 }
 
 body{
     background-color: black;
-    background-image: linear-gradient(60deg, #000000, #000001, #000009);
+    background-image: linear-gradient(60deg, #000000, #100101, #100000);
     background-size: 100%;
     color: white;
     font-family: 'Poppins', Poppins, sans-serif;
@@ -33,13 +26,14 @@ html {
     scroll-behavior: smooth;
 }
 
-:focus {
-    outline: none;
-}
-
 /*---- Main init ends here ----*/
 /**************************************************************************/
 /* Traversy Media's CSS for NavBar */
+
+#navbar-links a:hover {
+    border-bottom: 2px dotted white;
+}
+
 :root{
     --primary-color: rgba(13, 110, 139, 0.75);
     --overlay-color: rgba(24, 39, 51, 0.85);
@@ -236,6 +230,7 @@ html {
     text-decoration: none;
     transition: color 0.3s ease;
 }
+
 /*---- Traversy Media's CSS for NavBar ends here ----*/
 /*******************************************************************************/
 /* Dark Code's login system code. Also used for user registration.*/
@@ -430,38 +425,34 @@ input{
     font-size: 17px;
 }
 
-.box a{
-    color: white;
-}
-
-.box a:visited{
-    color: white;
-}
-
-.box a:hover{
+.box a:hover {
     color: #3fc700;
     border-bottom: 2px dotted green;
     transition: 1.0s;
     transition-delay: 0.1s;
 }
 
-.box a:active{
+.box a:visited {
+    color: white;
+}
+
+.box a:active {
     font-size: 14px;
     color: white;
 }
 
-.invalid-feedback{
+.invalid-feedback {
     color: red;
     margin-bottom: 10px;
     font-size: 12px;
 }
 
-.spec{
+.spec {
     color: white;
     border-bottom: 1px solid white;
 }
 
-.spec:hover{
+.spec:hover {
     color: white;
     border-bottom: 2px solid white;
 }
@@ -496,18 +487,9 @@ input{
     margin-top: 500px;
 }
 
-.red-text:hover{
+#red-text:hover{
     color: red;
-    border: none;
-}
-
-.box input[type='file']{
-    transition: 0.5s;
-    text-align: center;
-}
-
-input #file-upload-button{
-    text-align: center;
+    border-bottom: 2px dotted red;
 }
 
 .email-id{
@@ -536,26 +518,20 @@ input #file-upload-button{
 
 .viewpost-scroll{
     padding: 12px;
-    border: none;
     background-color: #3498db;
     color: black;
     text-decoration: none;
 }
 
 .viewpost-scroll:hover{
-    text-decoration: none;
-    border: none;
     color: black;
     padding: 13px;
 }
 
 article {
-    margin-left: 50px;
-    margin-bottom: 20px;
-    margin-top: 20px;
+    margin: 20px 500px 20px 50px;
     border: 2px solid #222;
     padding: 20px;
-    margin-right: 500px;
 }
 
 .post-title{
@@ -575,16 +551,14 @@ article {
     color: white;
 }
 
-.main {
-    padding
-}
-
 pre {
     line-height: 1.7em;
     max-width: 65ch;
     min-width: 20ch;
     color: red;
     display: block;
+    white-space: pre-wrap;
+    word-break: keep-all;
 }
 
 .post-author h6 {
@@ -632,11 +606,6 @@ hr {
 #current-btn {
     background-color: white;
     color: black;
-}
-
-pre {
-  white-space: pre-wrap;
-  word-break: keep-all;
 }
 
 #picture {

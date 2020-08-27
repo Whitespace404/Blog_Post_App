@@ -32,7 +32,7 @@ class User(db.Model, UserMixin):
         return User.query.get(user_id)
 
     def __repr__(self):
-        return F"[USER] {self.id} {self.username} --- {self.email} --- {self.image_file}"
+        return F"[USER] {self.id} {self.username} --- {self.email} --- {self.image_file} "
 
 
 class Post(db.Model):
@@ -44,4 +44,4 @@ class Post(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
     def __repr__(self):
-        return F"[POST] {self.id} posted {self.title} on {self.date_posted}"
+        return F"[POST] {self.id} posted {self.title} on {self.date_posted}\t VALIDATED={self.is_verified}\n"
