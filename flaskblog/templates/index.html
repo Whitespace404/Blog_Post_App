@@ -8,7 +8,7 @@
     <header class="showcase">
         <div class="container showcase-inner">
             <h1>Welcome to Blogger</h1>
-            <a href="#posts" class="viewpost-scroll">View Posts..</a>
+            <a href="#posts" class="viewpost-scroll">View Posts <i class="fas fa-angle-down" style="color: black; margin-left: 2px;"></i> </a>
         </div>
     </header>
 
@@ -28,7 +28,7 @@
     <br><br><br>
         <span class="spacing"></span>
         <div class="pagination" id="pgn">
-            <span class="dot"><</span>
+            <span class="dot"><i class="fas fa-arrow-left" style="content-visibility: auto;"></i></span>
             {% for page_num in posts.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
                 {% if page_num %}
                     {% if posts.page == page_num %}
@@ -40,7 +40,7 @@
                     <span class="dot">...</span>
                 {% endif %}
             {% endfor %}
-            <span class="dot">></span>
+            <span class="dot"><i class="fas fa-arrow-right"></i></span>
         </div>
         <br><br><br><br><br><br><br><br>
     </div>

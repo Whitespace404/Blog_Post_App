@@ -10,7 +10,14 @@
 }
 
 textarea {
-    color: black;
+    color: white;
+    background-color: black;
+    padding: 25px;
+    border: 3px solid black;
+}
+
+*:focus {
+    outline: none;
 }
 
 body{
@@ -124,10 +131,14 @@ html {
     width: 60px;
     height: 60px;
     padding: 1rem;
-    background: var(--primary-color);
+    background: none;
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.like-dislike {
+    appearance: none;
 }
 
 .menu-wrap .hamburger > div {
@@ -510,10 +521,23 @@ input{
 }
 
 .special {
-    font-family: Didot;
+    font-family: "Roboto Mono";
     font-size: 26px;
-    width: 950px;
-    height: 450px;
+    height: 680px; width: 1165px;
+    border: 2px solid white;
+    border-radius: 1em;
+}
+
+#title {
+    width: 30rem;
+}
+
+#title:focus {
+    width: 40rem;
+}
+
+legend {
+    font-size: 2em;
 }
 
 .viewpost-scroll{
@@ -630,5 +654,8 @@ body > div > div > div > div:nth-child(2) > h1 {
     margin-top: 32rem;
 }
 
-/*---- My code ends here ----*/
+.action-btn {
+    margin-bottom: 1.5em;
+}
+
 /***********************************************************************/

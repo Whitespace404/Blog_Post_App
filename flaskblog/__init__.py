@@ -9,13 +9,17 @@ from flask_mail import Mail
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '352afd99251a17dd386ccab7410aa6684431b46cdfa98ba6a25cb24a4cd3'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
+
 app.config['MAIL_SERVER'] = 'smtp.googlemail.com'
 app.config['MAIL_PORT'] = 587
 app.config['MAIL_USE_TLS'] = True
 app.config['MAIL_USERNAME'] = os.environ.get('EMAIL_ID')
 app.config["MAIL_PASSWORD"] = os.environ.get('EMAIL_PWD')
+
 app.config['RECAPTCHA_PUBLIC_KEY'] = '6Leki68ZAAAAAAblHuBeK2IdglQvnK8aVuWSqc9x'
 app.config['RECAPTCHA_PRIVATE_KEY'] = '6Leki68ZAAAAAL2YM69Aby_XaSj3REMsxJxo0sv7'
+
+app.config["TESTING"] = True
 
 # Instances
 db = SQLAlchemy(app)

@@ -126,17 +126,18 @@ def new_post():
 
         flash("Your post has been created successfully!", "success")
         return redirect(url_for('home'))
-    return render_template("create_post.html", form=form, legend="Update Post")
+    return render_template("create_post.html", form=form, legend="Make a Post")
 
 
-@app.route("/post/<int:post_id>/view")
+@app.route("/post/<int:post_id>/view", methods=['GET', 'POST'])
 @login_required
 def post(post_id):
     validated = False
-    post = Post.query.get_or_404(post_id)
 
     if current_user.username == "__FLASKBLOG_ADMIN__":
         validated = True
+
+    post = Post.query.get_or_404(post_id)
 
     return render_template("post.html", post=post, validated=validated)
 
