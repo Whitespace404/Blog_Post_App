@@ -20,7 +20,8 @@
             <div class="main-content">
 
                 <div>
-                {{ form.username.label }}
+                {{ form.username.label }}<br>
+                <i class="fas fa-user"></i>
                 {% if form.username.errors %}
                     {{ form.username(class="invalid-username") }}
                     <div class="invalid-feedback">
@@ -35,7 +36,8 @@
                 {% endif %}
                 </div>
                 <div>
-                {{ form.email.label }}
+                {{ form.email.label }}<br>
+                <i class="far fa-envelope"></i>
                 {% if form.email.errors %}
                     {{ form.email(class="invalid-username") }}
                     <div class="invalid-feedback">
@@ -51,7 +53,8 @@
 
                 </div>
                 <div>
-                {{ form.password.label }}
+                {{ form.password.label }}<br>
+                <i class="fas fa-lock"></i>
                 {% if form.password.errors %}
                     {{ form.password(class="invalid-password") }}
                     <div class="invalid-feedback">
@@ -65,7 +68,8 @@
                 {% endif %}
                 </div>
                 <div>
-                {{ form.confirm_password.label }}
+                {{ form.confirm_password.label }}<br>
+                <i class="fas fa-lock"></i>
                 {% if form.confirm_password.errors %}
                     {{ form.confirm_password(class="invalid-username") }}
                     <div class="invalid-feedback">

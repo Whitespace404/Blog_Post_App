@@ -41,6 +41,10 @@ html {
     border-bottom: 2px dotted white;
 }
 
+label {
+    font-size: 1.1em;
+}
+
 :root{
     --primary-color: rgba(13, 110, 139, 0.75);
     --overlay-color: rgba(24, 39, 51, 0.85);
@@ -244,7 +248,7 @@ html {
 
 /*---- Traversy Media's CSS for NavBar ends here ----*/
 /*******************************************************************************/
-/* Dark Code's login system code. Also used for user registration.*/
+/* Dark Code's login system code. Used for all forms in application.*/
 .box{
     width: 260px;
     padding: 5px 50px 5px 50px;
@@ -656,6 +660,22 @@ body > div > div > div > div:nth-child(2) > h1 {
 
 .action-btn {
     margin-bottom: 1.5em;
+}
+
+.validate-post-form {
+    padding: 20px;
+    margin: 0 30em 5em 30em;
+    text-align: center;
+}
+
+#save_changes {
+    all: unset;
+    padding: 3em;
+    margin: 3em;
+    padding: 10px;
+    background-color: white;
+    color: black;
+    cursor: pointer;
 }
 
 /***********************************************************************/

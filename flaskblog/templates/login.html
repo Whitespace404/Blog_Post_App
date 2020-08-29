@@ -10,7 +10,8 @@
             </legend>
             <div class="login">
                 <div class="email">
-                {{ form.username.label }}
+                {{ form.username.label }}<br>
+                <i class="fas fa-user"></i>
                 {% if form.username.errors %}
                     {{ form.username(class="invalid-username") }}
                     <div class="invalid-feedback">
@@ -25,7 +26,8 @@
                 {% endif %}
                     </div>
                 <div class="password">
-                {{ form.password.label }}
+                {{ form.password.label }}<br>
+                <i class="fas fa-lock"></i>
                 {% if form.password.errors %}
                     {{ form.password(class="invalid-password") }}
                     <div class="invalid-feedback">
