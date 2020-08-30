@@ -31,13 +31,29 @@
                     {{ form.content(class="invalid-feedback") }}
                     <div class="invalid-feedback">
                         {% for error in form.content.errors %}
-                            <span>{{ error }}</span>
+                            <span style="color: red;">{{ error }}</span>
                         {% endfor %}
                     </div>
                 {% else %}
                     {{ form.content(class="special") }}
                 {% endif %}
                 </div>
+
+                <div class="font">
+                {{ form.font.label }}
+                {% if form.font.errors %}
+                    {{ form.font(class="invalid-feedback") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.font.errors %}
+                            <span style="color: red;">{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.font(class="select-field") }}
+                {% endif %}
+                </div>
+
+
             <div class="submit-btn">
                 {{ form.submit }}
             </div>

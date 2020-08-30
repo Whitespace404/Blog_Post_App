@@ -6,11 +6,11 @@
   <article>
     <img src="{{ url_for('static', filename='profile_pics/' + post.author.image_file) }}"
     class="rounded-profile-pic">
-      <h2>{{ post.title }}</h2>
-      <p>{{ post.content }}</p>
+      <h2 style="font-family: {{ post.font }}">{{ post.title }}</h2>
+      <p style="font-family: {{ post.font }}">{{ post.content }}</p>
       <br>
     <hr>
-      <h5 class="post-author">| Written by {{ post.author.username }} on {{ post.date_posted.strftime('%Y-%m-%d') }}.</h5>
+      <h5 class="post-author" style="font-family: {{ post.font }}">| Written by {{ post.author.username }} on {{ post.date_posted.strftime('%Y-%m-%d') }}.</h5>
     <br><br>
     {% if post.author == current_user %}
       <div class="action-btn">
@@ -37,8 +37,8 @@
     {% elif not post.is_verified and validated %}
         <a href="{{ url_for('validate_post', post_id=post.id)}}" class="admin-validate-post" style="visibility: visible;">Validate this post</a>
     {% endif %}
-    
-    
+
+
   </article>
 </div>
 {% endblock content %}

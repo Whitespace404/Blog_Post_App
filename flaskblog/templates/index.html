@@ -14,21 +14,24 @@
 
     <div id="posts" class="main">
     {% for post in posts.items %}
-        <article class="main" tabindex="1">
+        <article class="main" tabindex="1" style="font-family: {{ post.font }}">
             <a href="{{ url_for('post', post_id=post.id )}}"><img src="{{ url_for('static', filename='profile_pics/' + post.author.image_file) }}"
                     class="rounded-profile-pic" tabindex="2"></a>
-            <a href="{{ url_for('post', post_id=post.id )}}" class="post-title"tabindex="3"><h2>{{ post.title }}</h2> </a>
-            <pre class="post-content" tabindex="4">{{ post.content }}</pre>
+
+            <a href="{{ url_for('post', post_id=post.id )}}" class="post-title"tabindex="3"><h2 style="font-family: {{ post.font }};">{{ post.title }}</h2> </a>
+
+            <pre class="post-content" tabindex="4"
+            style="font-family: {{ post.font }}">{{ post.content }}</pre>
             <br>
             <hr>
-            <a href="{{ url_for('user_post', username=post.author.username) }}" class="post-author" tabindex="5"><h6>| Written by {{ post.author.username }} on {{ post.date_posted.strftime('%Y-%m-%d') }}.
+            <a href="{{ url_for('user_post', username=post.author.username) }}" class="post-author" tabindex="5"><h6 style="font-family: {{ post.font }};">| Written by {{ post.author.username }} on {{ post.date_posted.strftime('%Y-%m-%d') }}.
             </h6></a>
         </article>
     {% endfor %}
     <br><br><br>
         <span class="spacing"></span>
         <div class="pagination" id="pgn">
-            <span class="dot"><i class="fas fa-arrow-left" style="content-visibility: auto;"></i></span>
+            <span class="dot"><i class="fas fa-arrow-left"></i></span>
             {% for page_num in posts.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
                 {% if page_num %}
                     {% if posts.page == page_num %}
@@ -42,7 +45,8 @@
             {% endfor %}
             <span class="dot"><i class="fas fa-arrow-right"></i></span>
         </div>
-        <br><br><br><br><br><br><br><br><br><br>
+        <br><br><br><br><br>
     </div>
 </div>
+
 {% endblock content %}

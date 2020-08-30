@@ -1,7 +1,7 @@
 from flask_wtf import FlaskForm, RecaptchaField
 from flask_wtf.file import FileField, FileAllowed
 from flask_login import current_user
-from wtforms import StringField, PasswordField, SubmitField, BooleanField, RadioField
+from wtforms import StringField, PasswordField, SubmitField, BooleanField, RadioField, SelectField
 from wtforms import TextAreaField
 from wtforms.validators import DataRequired, Length, Email, EqualTo
 from wtforms.validators import ValidationError
@@ -63,6 +63,11 @@ class UpdateAccountForm(FlaskForm):
 class PostForm(FlaskForm):
     title = StringField("Title", validators=[DataRequired()])
     content = TextAreaField("Content", validators=[DataRequired()])
+    picture = FileField('Add a picture', validators=[FileAllowed(['jpg', 'png', 'jpeg'])])
+    font = SelectField('Font', choices=[('Poppins', 'Poppins'), ('Didot', 'Didot'), ('Quicksand', 'Quicksand'), ('"Roboto Mono"', "Monospace"),
+        ("Caveat", "Handwriting"), ("Roboto", "Default")
+
+        ])
     submit = SubmitField("Post")
 
 

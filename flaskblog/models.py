@@ -41,6 +41,7 @@ class Post(db.Model):
     date_posted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     content = db.Column(db.Text, nullable=False)
     is_verified = db.Column(db.Boolean, default=False)
+    font = db.Column(db.String(30), default="Poppins")
 
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 

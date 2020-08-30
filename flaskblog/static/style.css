@@ -678,4 +678,10 @@ body > div > div > div > div:nth-child(2) > h1 {
     cursor: pointer;
 }
 
+.select-field {
+    padding: 20px;
+    color: black;
+    background-color: white;
+}
+
 /***********************************************************************/

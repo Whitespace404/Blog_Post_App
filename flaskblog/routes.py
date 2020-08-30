@@ -120,7 +120,9 @@ def new_post():
     form = PostForm()
     if form.validate_on_submit():
 
-        post = Post(title=form.title.data, content=form.content.data, author=current_user)
+        post = Post(title=form.title.data, content=form.content.data, \
+            author=current_user, font=form.font.data)
+
         db.session.add(post)
         db.session.commit()
 
