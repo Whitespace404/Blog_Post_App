@@ -1,11 +1,9 @@
 # A Blog Post App
-
 ## How to clone repository (For MacOS)
 
 If you want to clone the repository and try it 
 out on your own computer, follow the steps 
 mentioned below.
----
 
 ## Mac OS 
 The installation proccess for Mac is 
