@@ -68,7 +68,7 @@ bit different from the process that Mac users might follow
 but that is explained here as well.
 ### Prerequisites
 
-#### 1) Git.
+#### 1) GitBash Terminal.
 Download from [here](https://git-scm.com/downloads).
 We will be using Git to clone the repository 
 from GitHub. If you know how to download a Zip file
