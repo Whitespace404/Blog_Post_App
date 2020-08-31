@@ -85,7 +85,7 @@ python --version
 
 Once you have downloaded and installed the prerequisites, run the following commands from GitBash Terminal:
 
-```bash
+```
 git clone https://github.com/Whitespace404/Blog_Post_App.git
 cd Blog_Post_App
 pip install flask -q
@@ -108,8 +108,8 @@ Once you have ran all the above commands,
   you should something similar this in your terminal 
   window after you have executed the last command:
   
-  ```bash
-python3 run.py
+  ```
+python run.py
 
     /Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8/site-packages/flask_sqlalchemy/__init__.py:833: FSADeprecationWarning: SQLALCHEMY_TRACK_MODIFICATIONS adds significant overhead and will be disabled by default in the future.  Set it to True or False to suppress this warning.
   warnings.warn(FSADeprecationWarning(
