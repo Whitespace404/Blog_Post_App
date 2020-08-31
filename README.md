@@ -1,5 +1,5 @@
 # A Blog Post App
-## How to clone repository (For MacOS)
+## How to clone repository
 
 If you want to clone the repository and try it 
 out on your own computer, follow the steps 
