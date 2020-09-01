@@ -54,20 +54,24 @@ class UpdateAccountForm(FlaskForm):
                 raise ValidationError('This username already exists.')
 
     def validate_email(self, email):
-        if email.data != current_user.username:
+        if email.data != current_user.email:
             user = User.query.filter_by(email=email.data).first()
             if user:
-                raise ValidationError('This email already exists.')
+                raise ValidationError('This email already exists. Please choose a different one. How about ')
 
 
 class PostForm(FlaskForm):
     title = StringField("Title", validators=[DataRequired()])
     content = TextAreaField("Content", validators=[DataRequired()])
     picture = FileField('Add a picture', validators=[FileAllowed(['jpg', 'png', 'jpeg'])])
-    font = SelectField('Font', choices=[('Poppins', 'Poppins'), ('Didot', 'Didot'), ('Quicksand', 'Quicksand'), ('"Roboto Mono"', "Monospace"),
-        ("Caveat", "Handwriting"), ("Roboto", "Default")
-
-        ])
+    font = SelectField('Font', choices=[('Poppins', 'Poppins'), ('Didot', 'Didot'), ('Quicksand', 'Quicksand'),
+                                        ('"Roboto Mono"', "Monospace"), ("Caveat", "Handwriting"),
+                                        ("Roboto", "Default"), ("Montserrat", "Montserrat"),
+                                        ('"Balsamiq Sans", sans-serif', "Balsamiq Sans"), ("Lobster", "Lobster")])
+    font_color = SelectField("Font Colour", choices=[("#f72858", "Red"),
+                                                     ("#3197ff", "Blue"),
+                                                     ("#f3ff31", "Yellow"),
+                                                     ("#0da912", "Green")])
     submit = SubmitField("Post")
 
 

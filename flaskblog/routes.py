@@ -1,5 +1,6 @@
 import os
 from secrets import token_hex
+from random import choice
 from PIL import Image
 from flask import (render_template, url_for, flash,
                  redirect, request, abort)
@@ -8,7 +9,6 @@ from flaskblog.forms import *
 from flaskblog.models import User, Post
 from flask_login import login_user, current_user, logout_user, login_required
 from flask_mail import Message
-
 
 def send_reset_email(user):
     token = user.get_reset_token()
@@ -26,7 +26,7 @@ def send_reset_email(user):
 def home():
     page = request.args.get('page', 1, type=int)
     posts = Post.query.order_by(Post.date_posted.desc()).paginate(page=page, per_page=5)
-    return render_template('index.html', posts=posts)
+    return render_template('index.html', posts=posts, current_user=current_user)
 
 
 @app.route("/register", methods=['GET', 'POST'])
@@ -42,7 +42,7 @@ def register():
         db.session.commit()
         flash('Your account has been created! You are now able to log in', 'success')
         return redirect(url_for('login'))
-    return render_template('register.html', form=form)
+    return render_template('register.html', form=form, current_user=current_user)
 
 
 @app.route("/login", methods=['GET', 'POST'])
@@ -66,7 +66,7 @@ def login():
                 return redirect(url_for('home'))
         else:
             flash('Login Unsuccessful. Please check email and password', 'danger')
-    return render_template('login.html', form=form)
+    return render_template('login.html', form=form, current_user=current_user)
 
 
 @app.route("/logout/")
@@ -95,14 +95,17 @@ def save_picture(form_picture):
 @login_required
 def account():
     form = UpdateAccountForm()
+    user = User.query.filter_by(username=current_user.username).first()
 
     if form.validate_on_submit():
         if form.picture.data:
             picture_file = save_picture(form.picture.data)
             current_user.image_file = picture_file
+
         current_user.username = form.username.data
         current_user.email = form.email.data
         db.session.commit()
+
         flash("Your account has been updated!", "success")
         return redirect(url_for('account'))
 
@@ -120,8 +123,9 @@ def new_post():
     form = PostForm()
     if form.validate_on_submit():
 
-        post = Post(title=form.title.data, content=form.content.data, \
-            author=current_user, font=form.font.data)
+        post = Post(title=form.title.data, content=form.content.data,
+                    author=current_user, font=form.font.data,
+                    font_color=form.font_color.data)
 
         db.session.add(post)
         db.session.commit()
@@ -141,11 +145,17 @@ def post(post_id):
 
     post = Post.query.get_or_404(post_id)
 
+    # this is to prevent users from refreshing the page to gain more views
+    choices = [1, 1, 0, 0, 0]
+    inc = choice(choices)
+    post.views = post.views + inc
+    db.session.commit()
+
     return render_template("post.html", post=post, validated=validated)
 
 
-@app.route("/post/<int:post_id>/update", methods=["GET", "POST"])
 @login_required
+@app.route("/post/<int:post_id>/update", methods=["GET", "POST"])
 def update_post(post_id):
     post = Post.query.get_or_404(post_id)
 
@@ -157,6 +167,8 @@ def update_post(post_id):
     if form.validate_on_submit():
         post.title = form.title.data
         post.content = form.content.data
+        post.font = form.font.data
+        post.font_color = form.font_color.data
         db.session.commit()
         flash("Your post has been updated successfully", "success")
         return redirect(url_for('post', post_id=post.id))
@@ -245,4 +257,19 @@ def validate_post(post_id):
         return redirect(url_for("home"))
 
     return render_template("verify_post.html", form=form, post=post)
+
+
+# @app.route("/like/<int: post_id>", methods=["POST"])
+# def like_post(post_id):
+#     post = Post.query.get_or_404(post_id)
+#     if post.author != current_user:
+#         abort(403)
+
+#     post.likes = post.likes + 1
+
+# @login_required
+# @app.route("/post/<int: post_id>/reply")
+# def reply(post_id):
+#     post = Post.query.filter_by(id=post_id)
+#     return render_template('reply_post.html', post=post)
 

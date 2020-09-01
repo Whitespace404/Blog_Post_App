@@ -20,9 +20,9 @@ textarea {
     outline: none;
 }
 
-body{
+body {
     background-color: black;
-    background-image: linear-gradient(60deg, #000000, #100101, #100000);
+    background-image: linear-gradient(60deg, rgba(2,0,36,1) 0%, rgba(0,0,0,1) 0%);
     background-size: 100%;
     color: white;
     font-family: 'Poppins', Poppins, sans-serif;
@@ -46,7 +46,7 @@ label {
 }
 
 :root{
-    --primary-color: rgba(13, 110, 139, 0.75);
+    --primary-color: rgb(44 128 117 / 40%);
     --overlay-color: rgba(24, 39, 51, 0.85);
     --menu-speed: 0.75s;
 }
@@ -87,11 +87,11 @@ label {
     height: 100%;
 }
 
-.showcase h1{
+.showcase h1 {
     font-size: 4rem;
 }
 
-.showcase p{
+.showcase p {
     font-size: 1.3rem;
 }
 
@@ -247,7 +247,7 @@ label {
 }
 
 /*---- Traversy Media's CSS for NavBar ends here ----*/
-/*******************************************************************************/
+/*************************************************************************/
 /* Dark Code's login system code. Used for all forms in application.*/
 .box{
     width: 260px;
@@ -369,7 +369,7 @@ input[type='submit']:hover{
 }
 
 /*---- Dark Code's login system code ends here. ----*/
-/*******************************************************************************/
+/***************************************************************************/
 /* W3Schools Alert Button code */
 .alert-danger {
   padding: 20px;
@@ -423,7 +423,7 @@ input[type='submit']:hover{
 }
 
 /*---- W3Schools Alert Button code ends here ----/*
-/*******************************************************************************/
+/***********************************************************************/
 /* My code: */
 
 .title-login{
@@ -560,6 +560,11 @@ article {
     margin: 20px 500px 20px 50px;
     border: 2px solid #222;
     padding: 20px;
+    transition: .3s linear;
+}
+
+article:hover {
+    background-color: #101001;
 }
 
 .post-title{
@@ -583,7 +588,6 @@ pre {
     line-height: 1.7em;
     max-width: 65ch;
     min-width: 20ch;
-    color: red;
     display: block;
     white-space: pre-wrap;
     word-break: keep-all;
@@ -678,10 +682,42 @@ body > div > div > div > div:nth-child(2) > h1 {
     cursor: pointer;
 }
 
-.select-field {
-    padding: 20px;
+select {
+    padding: 1em;
     color: black;
-    background-color: white;
+    border-radius: 20px;
+    margin-top: 3em;
+    cursor: pointer;
 }
 
-/***********************************************************************/
+option {
+    padding: 30px;
+}
+
+pre, p {
+    font-size: 1.3rem;
+}
+
+h6 {
+    font-family: 1.4em;
+}
+
+#posts article a h2 {
+    font-size: 1.8em;
+    font-weight: bold;
+    padding-bottom: 5px;
+    text-decoration: none;
+    transition: .2s linear;
+    border-bottom: 2px solid black;
+}
+
+.invalid-feedback span { color: red; }
+
+.font-settings {
+    display: flex;
+    justify-content: space-around;
+}
+
+
+
+/***************************************************************/
