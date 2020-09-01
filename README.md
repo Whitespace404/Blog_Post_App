@@ -1,4 +1,4 @@
-# A Blog Post App
+# EverPost
 ## How to clone repository
 
 If you want to clone the repository and try it 
