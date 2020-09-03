@@ -5,6 +5,8 @@ like posts, edit their posts, delete their posts, change the font and font color
 have an admin validate their posts, change their profile picture and request a password reset email
 which will be sent to their registered Gmail account.
 
+Please consider starring the repository if you liked it.
+
 ## How to clone repository
 
 If you want to clone the repository and try it 
