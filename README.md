@@ -63,8 +63,6 @@ Once you have ran all the above commands,
   ```bash
 python3 run.py
 
-    /Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8/site-packages/flask_sqlalchemy/__init__.py:833: FSADeprecationWarning: SQLALCHEMY_TRACK_MODIFICATIONS adds significant overhead and will be disabled by default in the future.  Set it to True or False to suppress this warning.
-  warnings.warn(FSADeprecationWarning(
  * Serving Flask app "flaskblog" (lazy loading)
  * Environment: production
    WARNING: This is a development server. Do not use it in a production deployment.
@@ -124,8 +122,6 @@ Once you have ran all the above commands,
   ```
 python run.py
 
-    /Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8/site-packages/flask_sqlalchemy/__init__.py:833: FSADeprecationWarning: SQLALCHEMY_TRACK_MODIFICATIONS adds significant overhead and will be disabled by default in the future.  Set it to True or False to suppress this warning.
-  warnings.warn(FSADeprecationWarning(
  * Serving Flask app "flaskblog" (lazy loading)
  * Environment: production
    WARNING: This is a development server. Do not use it in a production deployment.
