@@ -1,9 +1,20 @@
 # EverPost
+
+A blog post app similar to Twitter where users can register, log in, create posts, read posts, 
+like posts, edit their posts, delete their posts, change the font and font color of their posts,
+have an admin validate their posts, change their profile picture and request a password reset email
+which will be sent to their account.
+
 ## How to clone repository
 
 If you want to clone the repository and try it 
 out on your own computer, follow the steps 
-mentioned below.
+mentioned below. All the features of the app mentioned 
+above will work except for the password reset email feature, which
+will not work now due to security reasons. I will be editing this readme to 
+also have instructions on how to enable the reset password feature as well.
+
+If you find an issue with the application - mention it [here](https://github.com/Whitespace404/EverPost/issues/new)
 
 ## Mac OS 
 The installation proccess for Mac is 
