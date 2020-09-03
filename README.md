@@ -1,5 +1,7 @@
 # EverPost
 
+# THIS REPOSITORY IS CURRENTLY IN DEVELOPMENT, MOST FEATURES MIGHT NOT WORK AS AN ISSUE HAS ENTERED THE MASTER BRANCH.
+
 ![A laptop](https://cdn.pixabay.com/photo/2016/11/19/15/32/business-1839876_960_720.jpg)
 
 A blog post app similar to Twitter where users can register, log in, create posts, read posts, 
