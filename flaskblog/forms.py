@@ -1,13 +1,17 @@
 from flask_wtf import FlaskForm, RecaptchaField
 from flask_wtf.file import FileField, FileAllowed
 from flask_login import current_user
-from wtforms import StringField, PasswordField, SubmitField, BooleanField, RadioField, SelectField
-from wtforms import TextAreaField
-from wtforms.validators import DataRequired, Length, Email, EqualTo
-from wtforms.validators import ValidationError
-from flaskblog.models import User, Post
-from flask_login import current_user
 
+from wtforms import (StringField, PasswordField,
+                    SubmitField, BooleanField,
+                    SelectField, RadioField,
+                    TextAreaField)
+from wtforms.validators import (DataRequired,
+                                Length, Email,
+                                EqualTo,
+                                ValidationError)
+from flaskblog.models import User, Post
+from flask import Markup
 
 class RegistrationForm(FlaskForm):
     username = StringField('Username',
@@ -65,13 +69,13 @@ class UpdateAccountForm(FlaskForm):
 class PostForm(FlaskForm):
     title = StringField("Title", validators=[DataRequired()])
     content = TextAreaField("Content", validators=[DataRequired()])
-    picture = FileField('Add a picture', validators=[FileAllowed(['jpg', 'png', 'jpeg'])])
     font = SelectField('Font', choices=[('Poppins', 'Poppins'), ('Didot', 'Didot'), ('Quicksand', 'Quicksand'),
                                         ('"Roboto Mono"', "Monospace"), ("Caveat", "Handwriting"),
                                         ("Roboto", "Default"), ("Montserrat", "Montserrat"),
                                         ('"Balsamiq Sans", sans-serif', "Balsamiq Sans"), ("Lobster", "Lobster")])
-    font_color = SelectField("Font Colour", choices=[("#f72858", "Red"),
-                                                     ("#3197ff", "Blue"),
+    font_color = SelectField("Font Colour", choices=[("#ffffff", "Default"),
+                                        ("#f72858", "Red"),
+                                        ("#3197ff", "Blue"),
                                                      ("#f3ff31", "Yellow"),
                                                      ("#0da912", "Green")])
     submit = SubmitField("Post")
@@ -85,7 +89,7 @@ class RequestResetForm(FlaskForm):
     def validate_email(self, email):
         user = User.query.filter_by(email=email.data).first()
         if user is None:
-            raise ValidationError('There is no account with that email.')
+            raise ValidationError('There is no account with that email. Please enter a valid email adress.')
 
 class ChangePasswordForm(FlaskForm):
     new_password = PasswordField("New Password", validators=[DataRequired(), Length(min=8)])
@@ -96,3 +100,4 @@ class ChangePasswordForm(FlaskForm):
 class VerifyPostForm(FlaskForm):
     verify = BooleanField("Verify this post?")
     save_changes = SubmitField("Save Changes")
+

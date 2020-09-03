@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %} {% endblock title %}</title>
+</head>
+
+<body>
+    <div class="content-section">
+        <form method="POST" action="">
+            {{ form.hidden_tag() }}
+            <fieldset class="box" id="register-fieldset">
+                <legend>
+                    Sign Up!
+                </legend>
+
+                <div class="main-content">
+                    {% block form %}{% endblock form %}
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</body>
+
+</html>

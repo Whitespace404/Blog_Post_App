@@ -2,13 +2,14 @@ import os
 from secrets import token_hex
 from random import choice
 from PIL import Image
-from flask import (render_template, url_for, flash,
-                 redirect, request, abort)
-from flaskblog import app, db, bcrypt, mail
-from flaskblog.forms import *
+from flask import (render_template, url_for,
+                    flash, redirect, request,
+                    abort)
 from flaskblog.models import User, Post
 from flask_login import login_user, current_user, logout_user, login_required
 from flask_mail import Message
+from flaskblog import *
+from flaskblog.forms import *
 
 def send_reset_email(user):
     token = user.get_reset_token()
@@ -40,9 +41,10 @@ def register():
         user = User(username=form.username.data, email=form.email.data, password=hashed_password)
         db.session.add(user)
         db.session.commit()
-        flash('Your account has been created! You are now able to log in', 'success')
+        flash('Your account has been created! You are now able to log in',
+            'success')
         return redirect(url_for('login'))
-    return render_template('register.html', form=form, current_user=current_user)
+    return render_template('register.html', form=form)
 
 
 @app.route("/login", methods=['GET', 'POST'])
@@ -66,7 +68,7 @@ def login():
                 return redirect(url_for('home'))
         else:
             flash('Login Unsuccessful. Please check email and password', 'danger')
-    return render_template('login.html', form=form, current_user=current_user)
+    return render_template('login.html', form=form)
 
 
 @app.route("/logout/")
@@ -146,12 +148,13 @@ def post(post_id):
     post = Post.query.get_or_404(post_id)
 
     # this is to prevent users from refreshing the page to gain more views
-    choices = [1, 1, 0, 0, 0]
-    inc = choice(choices)
-    post.views = post.views + inc
+    choices = [1, 1, 0, 0, 0, 0]
+    incrementing_number = choice(choices)
+    post.views += incrementing_number
     db.session.commit()
 
-    return render_template("post.html", post=post, validated=validated)
+    return render_template("post.html", post=post,
+        validated=validated)
 
 
 @login_required
@@ -259,17 +262,23 @@ def validate_post(post_id):
     return render_template("verify_post.html", form=form, post=post)
 
 
-# @app.route("/like/<int: post_id>", methods=["POST"])
-# def like_post(post_id):
-#     post = Post.query.get_or_404(post_id)
-#     if post.author != current_user:
-#         abort(403)
 
-#     post.likes = post.likes + 1
+@app.route("/like/<int:post_id>", methods=["POST"])
+def like_post(post_id):
+    post = Post.query.get_or_404(post_id)
+    user = User.query.filter_by(username=current_user.username).first()
+    liked_posts_user = user.liked_posts.split(', ')
 
-# @login_required
-# @app.route("/post/<int: post_id>/reply")
-# def reply(post_id):
-#     post = Post.query.filter_by(id=post_id)
-#     return render_template('reply_post.html', post=post)
+    for i in liked_posts_user:
+        if str(i) == str(post.id):
+            flash("You have already liked that post", "warning")
+            post.likes -= 1
+            return redirect(url_for("home"))
+    else:
+        post.likes += 1
+        user.liked_posts += f'{str(post.id)}, '
+        db.session.commit()
 
+        flash(f"You have liked the post titled-\
+             \"{post.title}\" successfully.", "success")
+    return redirect(url_for("post", post_id=post_id))

@@ -1,4 +1,4 @@
-/* Main init app and CSS Resets */
+/* Main init app, CSS Resets and wide selectors */
 
 * {
     margin: 0px 0px 0px 0px;
@@ -7,13 +7,6 @@
     font-family: Poppins, 'Poppins', Helveltica, sans-serif;
     text-decoration: none;
     color: white;
-}
-
-textarea {
-    color: white;
-    background-color: black;
-    padding: 25px;
-    border: 3px solid black;
 }
 
 *:focus {
@@ -33,16 +26,76 @@ html {
     scroll-behavior: smooth;
 }
 
+textarea {
+    color: white;
+    background-color: black;
+    padding: 25px;
+    border: 3px solid black;
+}
+
+label {
+    font-size: 1.1em;
+}
+
+h1 {
+    text-align: center;
+    border-bottom: 3px solid white;
+    margin-bottom: 35px;
+}
+
+input{
+    font-size: 17px;
+}
+
+legend {
+    font-size: 2em;
+}
+
+article {
+    margin: 20px 500px 20px 50px;
+    border: 2px solid #222;
+    padding: 20px;
+    transition: .3s linear;
+}
+
+article:hover {
+    background-color: rgb(5, 5, 5);
+}
+
+pre {
+    line-height: 1.7em;
+    max-width: 65ch;
+    min-width: 20ch;
+    display: block;
+    white-space: pre-wrap;
+    word-break: keep-all;
+    font-size: 1.3rem;
+}
+
+option {
+    padding: 30px;
+}
+
+p {
+    font-size: 1.3rem;
+}
+
+h6 {
+    font-family: 1.4em;
+}
+
+hr {
+    margin: 10px;
+    margin-bottom: 25px;
+}
+
+
 /*---- Main init ends here ----*/
 /**************************************************************************/
 /* Traversy Media's CSS for NavBar */
 
 #navbar-links a:hover {
     border-bottom: 2px dotted white;
-}
-
-label {
-    font-size: 1.1em;
 }
 
 :root{
@@ -139,10 +192,6 @@ label {
     display: flex;
     align-items: center;
     justify-content: center;
-}
-
-.like-dislike {
-    appearance: none;
 }
 
 .menu-wrap .hamburger > div {
@@ -247,7 +296,7 @@ label {
 }
 
 /*---- Traversy Media's CSS for NavBar ends here ----*/
-/*************************************************************************/
+/*******************************************************************/
 /* Dark Code's login system code. Used for all forms in application.*/
 .box{
     width: 260px;
@@ -430,16 +479,6 @@ input[type='submit']:hover{
     margin-bottom: 10px;
 }
 
-h1{
-    text-align: center;
-    border-bottom: 3px solid white;
-    margin-bottom: 35px;
-}
-
-input{
-    font-size: 17px;
-}
-
 .box a:hover {
     color: #3fc700;
     border-bottom: 2px dotted green;
@@ -540,10 +579,6 @@ input{
     width: 40rem;
 }
 
-legend {
-    font-size: 2em;
-}
-
 .viewpost-scroll{
     padding: 12px;
     background-color: #3498db;
@@ -554,17 +589,6 @@ legend {
 .viewpost-scroll:hover{
     color: black;
     padding: 13px;
-}
-
-article {
-    margin: 20px 500px 20px 50px;
-    border: 2px solid #222;
-    padding: 20px;
-    transition: .3s linear;
-}
-
-article:hover {
-    background-color: #101001;
 }
 
 .post-title{
@@ -584,15 +608,6 @@ article:hover {
     color: white;
 }
 
-pre {
-    line-height: 1.7em;
-    max-width: 65ch;
-    min-width: 20ch;
-    display: block;
-    white-space: pre-wrap;
-    word-break: keep-all;
-}
-
 .post-author h6 {
     min-width: 30ch;
 }
@@ -610,11 +625,6 @@ pre {
 
 .post-author{
     color: white;
-}
-
-hr {
-    margin: 10px;
-    margin-bottom: 25px;
 }
 
 .pagination {
@@ -690,17 +700,6 @@ select {
     cursor: pointer;
 }
 
-option {
-    padding: 30px;
-}
-
-pre, p {
-    font-size: 1.3rem;
-}
-
-h6 {
-    font-family: 1.4em;
-}
 
 #posts article a h2 {
     font-size: 1.8em;
@@ -711,13 +710,28 @@ h6 {
     border-bottom: 2px solid black;
 }
 
-.invalid-feedback span { color: red; }
+.invalid-feedback span {
+    color: red;
+}
 
 .font-settings {
     display: flex;
     justify-content: space-around;
 }
 
-
-
+.like-btn {
+    padding: 20px;
+    background: #222;
+    border-radius: 10px;
+    transition: .2s;
+    text-align: center;
+    margin-left: 10rem;
+    outline: none;
+    border: none;
+}
 /***************************************************************/
+
+.post-info {
+    display: flex;
+    justify-content: space-around;
+}
