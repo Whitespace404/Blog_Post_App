@@ -3,7 +3,7 @@
 A blog post app similar to Twitter where users can register, log in, create posts, read posts, 
 like posts, edit their posts, delete their posts, change the font and font color of their posts,
 have an admin validate their posts, change their profile picture and request a password reset email
-which will be sent to their account.
+which will be sent to their registered Gmail account.
 
 ## How to clone repository
 
