@@ -183,7 +183,7 @@ def update_post(post_id):
     return render_template("create_post.html", form=form, legend="Update Post")
 
 
-@app.route("/post/<int:post_id>/delete", methods=["POST"])
+@app.route("/post/<int:post_id>/delete", methods=["GET", "POST"])
 @login_required
 def delete_post(post_id):
     post = Post.query.get_or_404(post_id)
@@ -261,24 +261,13 @@ def validate_post(post_id):
 
     return render_template("verify_post.html", form=form, post=post)
 
-
-
-@app.route("/like/<int:post_id>", methods=["POST"])
-def like_post(post_id):
+@app.route("/confirm_delete_post/<int:post_id>", methods=["GET", "POST"])
+@login_required
+def confirm_delete_post(post_id):
+    form = ConfirmDeleteForm()
     post = Post.query.get_or_404(post_id)
-    user = User.query.filter_by(username=current_user.username).first()
-    liked_posts_user = user.liked_posts.split(', ')
 
-    for i in liked_posts_user:
-        if str(i) == str(post.id):
-            flash("You have already liked that post", "warning")
-            post.likes -= 1
-            return redirect(url_for("home"))
-    else:
-        post.likes += 1
-        user.liked_posts += f'{str(post.id)}, '
-        db.session.commit()
+    if form.validate_on_submit():
+        return redirect(url_for("delete_post", post_id=post.id))
 
-        flash(f"You have liked the post titled-\
-             \"{post.title}\" successfully.", "success")
-    return redirect(url_for("post", post_id=post_id))
+    return render_template("confirm_post_deletion.html", form=form, post=post)

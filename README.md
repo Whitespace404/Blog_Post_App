@@ -16,7 +16,7 @@ above will work except for the password reset email feature, which
 will not work now due to security reasons. I will be editing this readme to 
 also have instructions on how to enable the reset password feature as well.
 
-If you find an issue with the application - mention it [here](https://github.com/Whitespace404/EverPost/issues/new)
+_If you find an issue with the application - mention it [here](https://github.com/Whitespace404/EverPost/issues/new)_
 
 ## Mac OS 
 The installation proccess for Mac is 

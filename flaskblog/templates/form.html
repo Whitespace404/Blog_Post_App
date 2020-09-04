@@ -1,19 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %} {% endblock title %}</title>
+    <title>{% block title %}{% endblock title %}</title>
+    <link rel="stylesheet" type="text/css" href=" {{url_for('static', filename='style.css')}} ">
 </head>
+<body>
 
 <body>
+    <div class="main">
+    <nav>
+    <div class="menu-wrap">
+        <input type="checkbox" class="toggler" />
+        <div class="hamburger"><div></div></div>
+
+        <div class="menu main">
+            <div>
+                <div>
+                    <ul id="navbar-links">
+                        <li id="ml-200"> <a href=" {{ url_for('home') }} "> Home </a> </li>
+                        {% if current_user.is_authenticated %}
+                            <li><a href=" {{ url_for('account') }}"> Portfolio </a></li>
+                            <li><a href=" {{ url_for('new_post') }} "> Create Post </a></li>
+                            <li><a href=" {{ url_for('logout') }} " id="red-text"> Logout </a></li>
+                        {% else %}
+                            <li><a href=" {{ url_for('login') }} "> Login </a></li>
+                            <li><a href=" {{ url_for('register')}} "> Register </a></li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    </nav>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="alert-{{ category }}">
+                    {{ message }}
+                    <span class="closebtn" onclick="this.parentElement.style.display='none';">
+                    &times;</span>
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+</div>
     <div class="content-section">
         <form method="POST" action="">
             {{ form.hidden_tag() }}
             <fieldset class="box" id="register-fieldset">
                 <legend>
-                    Sign Up!
+                    <!-- {{ legend }} -->
+                    Sign up
                 </legend>
 
                 <div class="main-content">
@@ -25,3 +64,4 @@
 </body>
 
 </html>
+

@@ -15,13 +15,12 @@
     {% if post.author == current_user %}
       <div class="action-btn">
         <a href="{{ url_for('update_post', post_id=post.id) }}" class="button">Update this Post</a>
-        <form action="{{ url_for('delete_post', post_id=post.id )}}" method="POST">
-          <input type="submit" value="Delete this Post. This action cannot be undone. " class="danger-button">
-        </form>
+        <a href="{{ url_for('confirm_delete_post', post_id=post.id) }}" class="button">Delete this Post. This action cannot be undone. </a>
+<!--        <form action="{{ url_for('delete_post', post_id=post.id )}}" method="POST">-->
+<!--          <input type="submit" value="Delete this Post. This action cannot be undone. " class="danger-button">-->
+<!--        </form>-->
       </div>
     {% endif %}
-
-    <div class="post-info">
 
       {% if post.is_verified %}
         <i class="fas fa-check-circle"></i>
@@ -35,8 +34,7 @@
 
       {% if post.is_verified and validated %}
           <a href="#"> This post is already verified </a>
-          <a
-          href="{{ url_for('validate_post', post_id=post.id)}}"
+          <a href="{{ url_for('validate_post', post_id=post.id)}}"
           class="admin-validate-post"
           style="visibility: hidden;">
         Validate this post</a>
@@ -44,16 +42,8 @@
           <a href="{{ url_for('validate_post', post_id=post.id)}}"
           class="admin-validate-post" style="visibility: visible;">Validate this post</a>
       {% endif %}
-
-      <br><br>
-
-      <form action="{{ url_for('like_post', post_id=post.id) }}" method="POST">
-        <input type="submit" value="Like this post" class="like-btn" />
-      </form>
-
-
+    <div class="post-info">
       <h3>Views: {{ post.views }}</h3>
-      <h3>Likes: {{ post.likes }}</h3>
     </div>
 
   </article>

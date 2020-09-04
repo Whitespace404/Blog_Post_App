@@ -15,7 +15,8 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(120), unique=True, nullable=False)
     image_file = db.Column(db.String(20), nullable=False, default='default.jpg')
     password = db.Column(db.String(60), nullable=False)
-    liked_posts = db.Column(db.Text, default="No,posts,liked")
+    liked_posts = db.Column(db.Text, default="abcd,abcd")
+    subscribed_users = db.Column(db.Text, default='__FLASKBLOG_ADMIN__')
 
     posts = db.relationship('Post', backref='author', lazy=True)
 
