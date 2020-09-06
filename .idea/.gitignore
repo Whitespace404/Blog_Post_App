@@ -3,3 +3,5 @@
 /workspace.xml
 
 *.html linguist-detectable=false
+*.css linguist-detectable=false
+*.py linguist-detectable=true
