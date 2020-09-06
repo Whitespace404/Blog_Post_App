@@ -2,56 +2,78 @@ import os
 from secrets import token_hex
 from random import choice
 from PIL import Image
-from flask import (render_template, url_for,
-                    flash, redirect, request,
-                    abort)
+from flask import render_template, url_for, flash, redirect, request, abort
 from flaskblog.models import User, Post
 from flask_login import login_user, current_user, logout_user, login_required
 from flask_mail import Message
 from flaskblog import *
-from flaskblog.forms import *
+from flaskblog.forms import (
+    RegistrationForm,
+    LoginForm,
+    ConfirmDeleteForm,
+    UpdateAccountForm,
+    PostForm,
+    RequestResetForm,
+    ChangePasswordForm,
+    ConfirmDeleteForm,
+)
+
 
 def send_reset_email(user):
     token = user.get_reset_token()
-    msg = Message('Password Reset Request',
-                  sender='noreply@demo.com',
-                  recipients=[user.email])
-    msg.html = F'''
-            <a href="{url_for('reset_token', token=token, _external=True)}">
-'''
+    msg = Message(
+        "Password Reset Request", sender="noreply@demo.com", recipients=[user.email]
+    )
+    msg.html = f"""
+    <h1>EverPost | Password Reset</h1>
+    <p>We heard that you forgot your FLASKBLOG password. Reset it by
+        clicking down below.</p>
+
+    <a href="{url_for('reset_token', token=token, _external=True)}"></a>">Reset my Password</a>
+
+    <br>
+
+    <small>If you did not request this password
+        reset, simply ignore this email and no changes
+        will be made to your FLASKBLOG account. <br><br>
+    </small>
+"""
     mail.send(msg)
 
 
 @app.route("/")
 @app.route("/home")
 def home():
-    page = request.args.get('page', 1, type=int)
+    page = request.args.get("page", 1, type=int)
     posts = Post.query.order_by(Post.date_posted.desc()).paginate(page=page, per_page=5)
-    return render_template('index.html', posts=posts, current_user=current_user)
+    return render_template("index.html", posts=posts, current_user=current_user)
 
 
-@app.route("/register", methods=['GET', 'POST'])
+@app.route("/register", methods=["GET", "POST"])
 def register():
     if current_user.is_authenticated:
         flash("You already have an account.", "warning")
-        return redirect(url_for('home'))
+        return redirect(url_for("home"))
     form = RegistrationForm()
     if form.validate_on_submit():
-        hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
-        user = User(username=form.username.data, email=form.email.data, password=hashed_password)
+        hashed_password = bcrypt.generate_password_hash(form.password.data).decode(
+            "utf-8"
+        )
+        user = User(
+            username=form.username.data, email=form.email.data, password=hashed_password
+        )
         db.session.add(user)
         db.session.commit()
-        flash('Your account has been created! You are now able to log in',
-            'success')
-        return redirect(url_for('login'))
-    return render_template('register.html', form=form)
+        flash("Your account has been created! You are now able to log in", "success")
+        return redirect(url_for("login"))
+    return render_template("register.html", form=form, legend="Join Us")
 
 
-@app.route("/login", methods=['GET', 'POST'])
+@app.route("/login", methods=["GET", "POST"])
 def login():
     if current_user.is_authenticated:
         flash("You are already logged in.", "warning")
-        return redirect(url_for('home'))
+        return redirect(url_for("home"))
 
     form = LoginForm()
 
@@ -60,15 +82,15 @@ def login():
 
         if user and bcrypt.check_password_hash(user.password, form.password.data):
             login_user(user, remember=form.remember.data)
-            next_page = request.args.get('next')
+            next_page = request.args.get("next")
             flash("Log in Successful.", "success")
             if next_page:
                 return redirect(next_page)
             else:
-                return redirect(url_for('home'))
+                return redirect(url_for("home"))
         else:
-            flash('Login Unsuccessful. Please check email and password', 'danger')
-    return render_template('login.html', form=form)
+            flash("Login Unsuccessful. Please check email and password", "danger")
+    return render_template("login.html", form=form, legend="Login")
 
 
 @app.route("/logout/")
@@ -76,14 +98,14 @@ def login():
 def logout():
     logout_user()
     flash("You have been logged out successfully!", "success")
-    return redirect(url_for('home'))
+    return redirect(url_for("home"))
 
 
 def save_picture(form_picture):
     random_hex = token_hex(16)
     _, f_extn = os.path.splitext(form_picture.filename)
     picture_filename = random_hex + f_extn
-    picture_path = os.path.join(app.root_path, 'static/profile_pics', picture_filename)
+    picture_path = os.path.join(app.root_path, "static/profile_pics", picture_filename)
 
     final_size = (200, 200)
     image = Image.open(form_picture)
@@ -109,35 +131,41 @@ def account():
         db.session.commit()
 
         flash("Your account has been updated!", "success")
-        return redirect(url_for('account'))
+        return redirect(url_for("account"))
 
-    elif request.method == 'GET':
+    elif request.method == "GET":
         form.username.data = current_user.username
         form.email.data = current_user.email
 
-    image_file = url_for('static', filename=F'profile_pics/{current_user.image_file}')
-    return render_template('account.html', image_file=image_file, form=form)
+    image_file = url_for("static", filename=f"profile_pics/{current_user.image_file}")
+    return render_template(
+        "account.html", image_file=image_file, form=form, legend="Update your Account"
+    )
 
 
-@app.route('/post/new', methods=["GET", "POST"])
+@app.route("/post/new", methods=["GET", "POST"])
 @login_required
 def new_post():
     form = PostForm()
     if form.validate_on_submit():
 
-        post = Post(title=form.title.data, content=form.content.data,
-                    author=current_user, font=form.font.data,
-                    font_color=form.font_color.data)
+        post = Post(
+            title=form.title.data,
+            content=form.content.data,
+            author=current_user,
+            font=form.font.data,
+            font_color=form.font_color.data,
+        )
 
         db.session.add(post)
         db.session.commit()
 
         flash("Your post has been created successfully!", "success")
-        return redirect(url_for('home'))
-    return render_template("create_post.html", form=form, legend="Make a Post")
+        return redirect(url_for("home"))
+    return render_template("create_post.html", form=form, legend="Create a Post")
 
 
-@app.route("/post/<int:post_id>/view", methods=['GET', 'POST'])
+@app.route("/post/<int:post_id>/view", methods=["GET", "POST"])
 @login_required
 def post(post_id):
     validated = False
@@ -153,8 +181,7 @@ def post(post_id):
     post.views += incrementing_number
     db.session.commit()
 
-    return render_template("post.html", post=post,
-        validated=validated)
+    return render_template("post.html", post=post, validated=validated)
 
 
 @login_required
@@ -174,7 +201,7 @@ def update_post(post_id):
         post.font_color = form.font_color.data
         db.session.commit()
         flash("Your post has been updated successfully", "success")
-        return redirect(url_for('post', post_id=post.id))
+        return redirect(url_for("post", post_id=post.id))
 
     elif request.method == "GET":
         form.title.data = post.title
@@ -194,55 +221,72 @@ def delete_post(post_id):
     db.session.delete(post)
     db.session.commit()
 
-    flash("Your post has been deleted successfully.", 'success')
+    flash("Your post has been deleted successfully.", "success")
     return redirect(url_for("home"))
 
 
 @app.route("/user/<string:username>")
 def user_post(username):
-    page = request.args.get('page', 1, type=int)
+    page = request.args.get("page", 1, type=int)
     user = User.query.filter_by(username=username).first_or_404()
-    posts = Post.query.filter_by(author=user)\
-        .order_by(Post.date_posted.desc())\
+    posts = (
+        Post.query.filter_by(author=user)
+        .order_by(Post.date_posted.desc())
         .paginate(page=page, per_page=5)
-    return render_template('user_post.html', posts=posts, user=user)
+    )
+    return render_template("user_post.html", posts=posts, user=user)
 
 
-@app.route("/reset_password", methods=['GET', 'POST'])
+@app.route("/reset_password", methods=["GET", "POST"])
 def reset_request():
     if current_user.is_authenticated:
-        return redirect(url_for('home'))
+        return redirect(url_for("home"))
     form = RequestResetForm()
 
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
         send_reset_email(user)
-        flash('An email has been sent with instructions to reset your password.', 'success')
-        return redirect(url_for('login'))
+        flash(
+            "An email has been sent with instructions to reset your password.",
+            "success",
+        )
+        return redirect(url_for("login"))
 
-    return render_template('reset_request.html', title='Reset Password', form=form)
+    return render_template(
+        "reset_request.html",
+        title="Reset Password",
+        form=form,
+        legend="Request a Password Reset",
+    )
 
 
-@app.route("/reset_password/<token>", methods=['GET', 'POST'])
+@app.route("/reset_password/<token>", methods=["GET", "POST"])
 def reset_token(token):
     if current_user.is_authenticated:
-        return redirect(url_for('home'))
+        return redirect(url_for("home"))
     user = User.verify_reset_token(token)
     if user is None:
-        flash('That is an invalid or expired token', 'warning')
-        return redirect(url_for('reset_request'))
+        flash("That is an invalid or expired token", "warning")
+        return redirect(url_for("reset_request"))
     form = ChangePasswordForm()
     if form.validate_on_submit():
-        hashed_password = bcrypt.generate_password_hash(form.new_password.data).decode('utf-8')
+        hashed_password = bcrypt.generate_password_hash(form.new_password.data).decode(
+            "utf-8"
+        )
         user.password = hashed_password
         db.session.commit()
-        flash('Your password has been updated! You are now able to log in', 'success')
-        return redirect(url_for('login'))
-    return render_template('reset_token.html', title='Reset Password', form=form)
+        flash("Your password has been updated! You are now able to log in", "success")
+        return redirect(url_for("login"))
+    return render_template(
+        "reset_token.html",
+        title="Reset Password",
+        form=form,
+        legend="Change your Password",
+    )
 
 
 @login_required
-@app.route('/validate_post/<int:post_id>', methods=["GET", "POST"])
+@app.route("/validate_post/<int:post_id>", methods=["GET", "POST"])
 def validate_post(post_id):
     post = Post.query.get_or_404(post_id)
     if current_user.username != "__FLASKBLOG_ADMIN__":
@@ -259,7 +303,10 @@ def validate_post(post_id):
         flash("That post has been verified.", "success")
         return redirect(url_for("home"))
 
-    return render_template("verify_post.html", form=form, post=post)
+    return render_template(
+        "verify_post.html", form=form, post=post, legend="Verify this Post"
+    )
+
 
 @app.route("/confirm_delete_post/<int:post_id>", methods=["GET", "POST"])
 @login_required
@@ -270,9 +317,9 @@ def confirm_delete_post(post_id):
     if form.validate_on_submit():
         return redirect(url_for("delete_post", post_id=post.id))
 
-    return render_template("confirm_post_deletion.html", form=form, post=post)
-
-
-@app.route("/subscribe", methods=["GET", "POST"])
-def subscribe(user_id):
-    return redirect(url_for("home"))
+    return render_template(
+        "confirm_post_deletion.html",
+        form=form,
+        post=post,
+        legend="Confirm Deletion of this Post",
+    )

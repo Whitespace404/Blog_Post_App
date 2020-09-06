@@ -5,38 +5,38 @@
     <form method="POST" action="">
         {{ form.hidden_tag() }}
         <fieldset class="box" id="login-fieldset">
-            <legend>
+            <legend style="font-size: 1.5em;">
                 Forgot Your Password?
             </legend>
             <div class="login">
                 <div class="email">
-                {{ form.email.label }}
-                {% if form.email.errors %}
+                    {{ form.email.label }}
+                    {% if form.email.errors %}
                     {{ form.email(class="invalid-username") }}
                     <div class="invalid-feedback">
                         {% for error in form.email.errors %}
-                            <span>{{ error }}</span>
+                        <span>{{ error }}</span>
                         {% endfor %}
                     </div>
-                {% else %}
+                    {% else %}
                     {{ form.email }}
-                {% endif %}
-                    </div>
+                    {% endif %}
+                </div>
 
                 <br>
                 <div class="recaptcha">
-                {{ form.recaptcha }}
-                     <div class="invalid-feedback">
+                    {{ form.recaptcha }}
+                    <div class="invalid-feedback">
                         {% for error in form.recaptcha.errors %}
-                            <span>{{ error }}</span>
+                        <span>{{ error }}</span>
                         {% endfor %}
                     </div>
-              </div>
+                </div>
                 <br>
 
             </div>
             <div class="submit-btn">
-            {{ form.submit }}
+                {{ form.submit }}
             </div>
         </fieldset>
     </form>

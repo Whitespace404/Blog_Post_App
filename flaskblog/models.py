@@ -13,28 +13,29 @@ class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True, unique=True)
     username = db.Column(db.String(20), unique=True, nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
-    image_file = db.Column(db.String(20), nullable=False, default='default.jpg')
+    image_file = db.Column(db.String(20), nullable=False, default="default.jpg")
     password = db.Column(db.String(60), nullable=False)
     liked_posts = db.Column(db.Text, default="abcd,abcd")
-    subscribed_users = db.Column(db.Text, default='__FLASKBLOG_ADMIN__')
-
-    posts = db.relationship('Post', backref='author', lazy=True)
+    subscribed_users = db.Column(db.Text, default="__FLASKBLOG_ADMIN__,")
+    posts = db.relationship("Post", backref="author", lazy=True)
 
     def get_reset_token(self, expires_sec=1800):
-        s = Serializer(app.config['SECRET_KEY'], expires_sec)
-        return s.dumps({'user_id': self.id}).decode('utf-8')
+        s = Serializer(app.config["SECRET_KEY"], expires_sec)
+        return s.dumps({"user_id": self.id}).decode("utf-8")
 
     @staticmethod
     def verify_reset_token(token):
-        s = Serializer(app.config['SECRET_KEY'])
+        s = Serializer(app.config["SECRET_KEY"])
         try:
-            user_id = s.loads(token)['user_id']
+            user_id = s.loads(token)["user_id"]
         except:
             return None
         return User.query.get(user_id)
 
     def __repr__(self):
-        return F"[USER] {self.id} {self.username} --- {self.email} --- {self.image_file} "
+        return (
+            f"[USER] {self.id} {self.username} --- {self.email} --- {self.image_file} "
+        )
 
 
 class Post(db.Model):
@@ -49,10 +50,10 @@ class Post(db.Model):
     likes = db.Column(db.Integer, default=0)
 
     # replies = db.relationship('Reply', backref="main_post", lazy=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
 
     def __repr__(self):
-        return F"[POST] {self.id} posted {self.title} on {self.date_posted}\t VALIDATED={self.is_verified}"
+        return f"[POST] {self.id} posted {self.title} on {self.date_posted}\t VALIDATED={self.is_verified}"
 
 
 class Reply(db.Model):
@@ -60,10 +61,8 @@ class Reply(db.Model):
     title = db.Column(db.String(30), nullable=False)
     timestamp = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     content = db.Column(db.Text, nullable=False)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'),
-                     nullable=False)
-    post_id = db.Column(db.Integer, db.ForeignKey('post.id'),
-                        nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
+    post_id = db.Column(db.Integer, db.ForeignKey("post.id"), nullable=False)
 
     def __repr__(self):
         return f"[REPLY] {self.id}) | {self.title}"

@@ -1,14 +1,19 @@
 User can sign-up                    √
 User can log-in                     √
+
 Paginate Posts                      √
+
 Users can create posts              √
 Users can edit posts                √
 Users can delete posts              √
 Users can read posts                √
+
 Password Reset Email                √
+
 Admin                               √
 Admin can validate posts            √
-User can change the font of the post√
-User can change the font color      √
 
-Users can reply to posts x
+User can change the font            √
+User can change the font color      √
+Users can subscribe to other users  √
+
