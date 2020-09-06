@@ -271,3 +271,8 @@ def confirm_delete_post(post_id):
         return redirect(url_for("delete_post", post_id=post.id))
 
     return render_template("confirm_post_deletion.html", form=form, post=post)
+
+
+@app.route("/subscribe", methods=["GET", "POST"])
+def subscribe(user_id):
+    return redirect(url_for("home"))

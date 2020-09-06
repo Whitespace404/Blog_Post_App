@@ -89,11 +89,6 @@ hr {
     margin-bottom: 25px;
 }
 
-
-/*---- Main init ends here ----*/
-/**************************************************************************/
-/* Traversy Media's CSS for NavBar */
-
 #navbar-links a:hover {
     border-bottom: 2px dotted white;
 }
@@ -295,9 +290,6 @@ hr {
     transition: color 0.3s ease;
 }
 
-/*---- Traversy Media's CSS for NavBar ends here ----*/
-/*******************************************************************/
-/* Dark Code's login system code. Used for all forms in application.*/
 .box{
     width: 260px;
     padding: 5px 50px 5px 50px;
@@ -417,9 +409,6 @@ input[type='submit']:hover{
     background: #2ecc71;
 }
 
-/*---- Dark Code's login system code ends here. ----*/
-/***************************************************************************/
-/* W3Schools Alert Button code */
 .alert-danger {
   padding: 20px;
   background-color: #f44336; /* Red */
@@ -478,10 +467,6 @@ input[type='submit']:hover{
     visibility: hidden; /* For hiding the troubleshoot link after a successful
     login. */
 }
-
-/*---- W3Schools Alert Button code ends here ----/*
-/***********************************************************************/
-/* My code: */
 
 .title-login{
     margin-bottom: 10px;
@@ -739,4 +724,3 @@ select {
     border: none;
 }
 
-/***************************************************************/

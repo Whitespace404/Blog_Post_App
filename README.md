@@ -1,7 +1,5 @@
 # EverPost
 
-## __THIS REPOSITORY IS CURRENTLY IN DEVELOPMENT, MOST FEATURES MIGHT NOT WORK AS AN ISSUE HAS ENTERED THE MASTER BRANCH.__
-
 ![A laptop](https://cdn.pixabay.com/photo/2016/11/19/15/32/business-1839876_960_720.jpg)
 
 A blog post app similar to Twitter where users can register, log in, create posts, read posts, 
@@ -57,16 +55,14 @@ python3 run.py
 ```
 
 Once you have ran all the above commands,
- you can open a web browser and visit
-  localhost:5000 to view it. 
+you can open a web browser and visit
+localhost:5000 to view it. 
   
-  If you followed all the steps above correctly,
-  you should see something similar to this in your Terminal 
-  window after you have executed the last command:
+If you followed all the steps above correctly,
+you should see something similar to this in your Terminal 
+window after you have executed the last command:
   
-  ```bash
-python3 run.py
-
+  ```
  * Serving Flask app "flaskblog" (lazy loading)
  * Environment: production
    WARNING: This is a development server. Do not use it in a production deployment.
@@ -116,16 +112,14 @@ python run.py
 ```
 
 Once you have ran all the above commands,
- you can open a web browser and visit
-  localhost:5000 to view it. 
+you can open a web browser and visit
+localhost:5000 to view it. 
   
-  If you followed all the steps above correctly,
-  you should something similar this in your terminal 
-  window after you have executed the last command:
-  
-  ```
-python run.py
+If you followed all the steps above correctly,
+you should something similar this in your terminal 
+window after you have executed the last command:
 
+```
  * Serving Flask app "flaskblog" (lazy loading)
  * Environment: production
    WARNING: This is a development server. Do not use it in a production deployment.
