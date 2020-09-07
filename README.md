@@ -20,6 +20,8 @@ also have instructions on how to enable the reset password feature as well.
 
 _If you find an issue with the application - mention it [here](https://github.com/Whitespace404/EverPost/issues/new)_
 
+---
+
 ## Mac OS 
 The installation proccess for Mac is 
 mentioned below.
