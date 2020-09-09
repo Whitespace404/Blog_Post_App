@@ -25,17 +25,17 @@ def send_reset_email(user):
         "Password Reset Request", sender="noreply@demo.com", recipients=[user.email]
     )
     msg.html = f"""
-    <h1>EverPost | Password Reset</h1>
+    <h1>FlaskBLog | Password Reset</h1>
     <p>We heard that you forgot your FLASKBLOG password. Reset it by
-        clicking down below.</p>
+clicking down below.</p>
 
-    <a href="{url_for('reset_token', token=token, _external=True)}"></a>">Reset my Password</a>
+    <a href="{url_for('reset_token', token=token, _external=True)}">Reset my Password</a>
 
     <br>
 
     <small>If you did not request this password
-        reset, simply ignore this email and no changes
-        will be made to your FLASKBLOG account. <br><br>
+reset, simply ignore this email and no changes
+will be made to your FLASKBLOG account. <br><br>
     </small>
 """
     mail.send(msg)
@@ -162,7 +162,7 @@ def new_post():
 
         flash("Your post has been created successfully!", "success")
         return redirect(url_for("home"))
-    return render_template("create_post.html", form=form, legend="Create a Post")
+    return render_template("post_actions.html", form=form, legend="Create a Post")
 
 
 @app.route("/post/<int:post_id>/view", methods=["GET", "POST"])
@@ -199,6 +199,7 @@ def update_post(post_id):
         post.content = form.content.data
         post.font = form.font.data
         post.font_color = form.font_color.data
+        post.is_edited = True
         db.session.commit()
         flash("Your post has been updated successfully", "success")
         return redirect(url_for("post", post_id=post.id))
@@ -207,7 +208,7 @@ def update_post(post_id):
         form.title.data = post.title
         form.content.data = post.content
 
-    return render_template("create_post.html", form=form, legend="Update Post")
+    return render_template("post_actions.html", form=form, legend="Update Post")
 
 
 @app.route("/post/<int:post_id>/delete", methods=["GET", "POST"])
@@ -234,7 +235,7 @@ def user_post(username):
         .order_by(Post.date_posted.desc())
         .paginate(page=page, per_page=5)
     )
-    return render_template("user_post.html", posts=posts, user=user)
+    return render_template("filter_post.html", posts=posts, user=user)
 
 
 @app.route("/reset_password", methods=["GET", "POST"])
@@ -321,5 +322,5 @@ def confirm_delete_post(post_id):
         "confirm_post_deletion.html",
         form=form,
         post=post,
-        legend="Confirm Deletion of this Post",
+        legend="Are you sure?",
     )

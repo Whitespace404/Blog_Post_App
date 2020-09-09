@@ -5,21 +5,19 @@
 {% block form %}
 <div class="email">
     {{ form.confirmation_text.label }}
-        {% if form.confirmation_text.errors %}
-            {{ form.confirmation_text(class="invalid-username") }}
-            <div class="invalid-feedback">
-            {% for error in form.confirmation_text.errors %}
-                <span>{{ error }}</span>
-            {% endfor %}
-            </div>
-        {% else %}
-            {{ form.confirmation_text }}
-        {% endif %}
+    {% if form.confirmation_text.errors %}
+    {{ form.confirmation_text(class="invalid-username") }}
+    <div class="invalid-feedback">
+        {% for error in form.confirmation_text.errors %}
+        <span>{{ error }}</span>
+        {% endfor %}
+    </div>
+    {% else %}
+    {{ form.confirmation_text }}
+    {% endif %}
 </div>
-
-
 <div class="submit-btn">
-{{ form.submit }}
+    {{ form.submit }}
 </div>
 
 {% endblock %}

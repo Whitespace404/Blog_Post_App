@@ -11,68 +11,68 @@
             </legend>
             <div class="login">
                 <div class="email">
-                {{ form.title.label }}
-                {% if form.title.errors %}
+                    {{ form.title.label }}
+                    {% if form.title.errors %}
                     {{ form.title(class="invalid-title") }}
                     <div class="invalid-feedback">
                         {% for error in form.title.errors %}
-                            <span>{{ error }}</span>
+                        <span>{{ error }}</span>
                         {% endfor %}
                     </div>
 
 
-                {% else %}
+                    {% else %}
                     {{ form.title }}
-                {% endif %}
-                    </div>
+                    {% endif %}
+                </div>
                 <div class="content">
-                {{ form.content.label }}
-                {% if form.content.errors %}
+                    {{ form.content.label }}
+                    {% if form.content.errors %}
                     {{ form.content(class="invalid-feedback") }}
                     <div class="invalid-feedback">
                         {% for error in form.content.errors %}
-                            <span style="color: red;">{{ error }}</span>
+                        <span style="color: red;">{{ error }}</span>
                         {% endfor %}
                     </div>
-                {% else %}
+                    {% else %}
                     {{ form.content(class="special") }}
-                {% endif %}
+                    {% endif %}
                 </div>
                 <div class="font-settings">
-                <div class="font">
-                {{ form.font.label }}
-                {% if form.font.errors %}
-                    {{ form.font(class="invalid-feedback") }}
-                    <div class="invalid-feedback">
-                        {% for error in form.font.errors %}
+                    <div class="font">
+                        {{ form.font.label }}
+                        {% if form.font.errors %}
+                        {{ form.font(class="invalid-feedback") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.font.errors %}
                             <span style="color: red;">{{ error }}</span>
-                        {% endfor %}
+                            {% endfor %}
+                        </div>
+                        {% else %}
+                        {{ form.font(class="select-field") }}
+                        {% endif %}
                     </div>
-                {% else %}
-                    {{ form.font(class="select-field") }}
-                {% endif %}
-                </div>
-                
-                <div class="font-color">
-                    {{ form.font_color.label }}
-                    {% if form.font_color.errors %}
+
+                    <div class="font-color">
+                        {{ form.font_color.label }}
+                        {% if form.font_color.errors %}
                         {{ form.font_color(class="invalid-feedback") }}
                         <div class="invalid-feedback">
                             {% for error in form.font_color.errors %}
-                                <span style="color: red;">{{ error }}</span>
+                            <span style="color: red;">{{ error }}</span>
                             {% endfor %}
                         </div>
-                    {% else %}
+                        {% else %}
                         {{ form.font_color(class="select-field") }}
-                    {% endif %}
+                        {% endif %}
                     </div>
                 </div>
-            <div class="submit-btn">
-                {{ form.submit }}
-            </div>
+                <div class="submit-btn">
+                    {{ form.submit }}
+                </div>
 
-        </div>
-    </fieldset>
+            </div>
+        </fieldset>
     </form>
 </div>
 {% endblock content %}

@@ -44,25 +44,13 @@ class Post(db.Model):
     date_posted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     content = db.Column(db.Text, nullable=False)
     is_verified = db.Column(db.Boolean, default=False)
+    is_edited = db.Column(db.Boolean, default=False)
     views = db.Column(db.Integer, default=0)
     font = db.Column(db.String(30), default="Poppins")
     font_color = db.Column(db.String(20), default="#fff")
     likes = db.Column(db.Integer, default=0)
 
-    # replies = db.relationship('Reply', backref="main_post", lazy=True)
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
 
     def __repr__(self):
         return f"[POST] {self.id} posted {self.title} on {self.date_posted}\t VALIDATED={self.is_verified}"
-
-
-class Reply(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(30), nullable=False)
-    timestamp = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
-    content = db.Column(db.Text, nullable=False)
-    user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
-    post_id = db.Column(db.Integer, db.ForeignKey("post.id"), nullable=False)
-
-    def __repr__(self):
-        return f"[REPLY] {self.id}) | {self.title}"

@@ -4,44 +4,43 @@
 {% block content %}
 <div class="main">
   <article>
-    <img src="{{ url_for('static', filename='profile_pics/' + post.author.image_file) }}"
-    class="rounded-profile-pic">
-      <h2 style="font-family: {{ post.font }}; color: {{ post.font_color }}">{{ post.title }}</h2>
-      <pre style="font-family: {{ post.font }}; color: {{ post.font_color }}">{{ post.content }}</pre>
-      <br>
+    <img src="{{ url_for('static', filename='profile_pics/' + post.author.image_file) }}" class="rounded-profile-pic">
+    <h2 style="font-family: {{ post.font }}; color: {{ post.font_color }}">{{ post.title }}</h2>
+    <pre style="font-family: {{ post.font }}; color: {{ post.font_color }}">{{ post.content }}</pre>
+    <br>
     <hr>
-      <h5 class="post-author" style="font-family: {{ post.font }}; color: {{ post.font_color }}">| Written by {{ post.author.username }} on {{ post.date_posted.strftime('%Y-%m-%d') }}.</h5>
+    <h5 class="post-author" style="font-family: {{ post.font }}; color: {{ post.font_color }}">| Written by
+      {{ post.author.username }} on {{ post.date_posted.strftime('%Y-%m-%d') }}
+      {% if post.is_edited %}
+      (edited).
+      {% endif %}</h5>
     <br><br>
     {% if post.author == current_user %}
-      <div class="action-btn">
-        <a href="{{ url_for('update_post', post_id=post.id) }}" class="button">Update this Post</a>
-        <a href="{{ url_for('confirm_delete_post', post_id=post.id) }}" class="button">Delete this Post. This action cannot be undone. </a>
-<!--        <form action="{{ url_for('delete_post', post_id=post.id )}}" method="POST">-->
-<!--          <input type="submit" value="Delete this Post. This action cannot be undone. " class="danger-button">-->
-<!--        </form>-->
-      </div>
+    <div class="action-btn">
+      <a href="{{ url_for('update_post', post_id=post.id) }}" class="button">Update this Post</a>
+      <a href="{{ url_for('confirm_delete_post', post_id=post.id) }}" class="button">Delete this Post. This action
+        cannot be undone. </a>
+    </div>
     {% endif %}
 
-      {% if post.is_verified %}
-        <i class="fas fa-check-circle"></i>
-        <label> Verified Post </label>
-      {% else %}
-        <i class="fas fa-times"></i>
-        <label> Not verified </label>
-      {% endif %}
+    {% if post.is_verified %}
+    <i class="fas fa-check-circle"></i>
+    <label> Verified Post </label>
+    {% else %}
+    <i class="fas fa-times"></i>
+    <label> Not verified </label>
+    {% endif %}
 
-      <br><br>
+    <br><br>
 
-      {% if post.is_verified and validated %}
-          <a href="#"> This post is already verified </a>
-          <a href="{{ url_for('validate_post', post_id=post.id)}}"
-          class="admin-validate-post"
-          style="visibility: hidden;">
-        Validate this post</a>
-      {% elif not post.is_verified and validated %}
-          <a href="{{ url_for('validate_post', post_id=post.id)}}"
-          class="admin-validate-post" style="visibility: visible;">Validate this post</a>
-      {% endif %}
+    {% if post.is_verified and validated %}
+    <a href="#"> This post is already verified </a>
+    <a href="{{ url_for('validate_post', post_id=post.id)}}" class="admin-validate-post" style="visibility: hidden;">
+      Validate this post</a>
+    {% elif not post.is_verified and validated %}
+    <a href="{{ url_for('validate_post', post_id=post.id)}}" class="admin-validate-post"
+      style="visibility: visible;">Validate this post</a>
+    {% endif %}
     <div class="post-info">
       <h3>Views: {{ post.views }}</h3>
     </div>
