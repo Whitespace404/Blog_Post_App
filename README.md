@@ -44,15 +44,7 @@ python --version
 ```bash
 git clone https://github.com/Whitespace404/Blog_Post_App.git
 cd Blog_Post_App
-pip3 install flask -q
-pip3 install flask_sqlalchemy -q
-pip3 install flask_bcrypt -q
-pip3 install flask_login -q
-pip3 install flask_mail -q
-pip3 install flask-wtf -q
-pip3 install wtforms[email] -q
-pip3 install pillow -q
-pip3 install email-validator==1.1.1 -q
+pip3 install -r requirements.txt 
 python3 run.py
 ```
 
@@ -101,15 +93,7 @@ Once you have downloaded and installed the prerequisites, run the following comm
 ```
 git clone https://github.com/Whitespace404/Blog_Post_App.git
 cd Blog_Post_App
-pip install flask -q
-pip install flask_sqlalchemy -q
-pip install flask_bcrypt -q
-pip install flask_login -q
-pip install flask_mail -q
-pip install flask-wtf -q
-pip install wtforms[email] -q
-pip install pillow -q
-pip install email-validator==1.1.1 -q
+pip install -r requirements.txt 
 python run.py
 ```
 
