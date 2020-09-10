@@ -15,5 +15,6 @@ Admin can validate posts            √
 
 User can change the font            √
 User can change the font color      √
-Users can subscribe to other users  √
+Users can see which posts are edited√
 
+Users can log in using OAuth        x

@@ -24,19 +24,31 @@ def send_reset_email(user):
     msg = Message(
         "Password Reset Request", sender="noreply@demo.com", recipients=[user.email]
     )
+
     msg.html = f"""
-    <h1>FlaskBLog | Password Reset</h1>
-    <p>We heard that you forgot your FLASKBLOG password. Reset it by
-clicking down below.</p>
+    <h1 style="font-family: Poppins;text-align: center; ">
+Password Reset | FlaskBlog </h1>
+<p style="text-align: center; font-family: Poppins;
+font-size: larger;">
+Looks like you've forgotten your password.
+Don't worry! It happens to everyone.
+Reset it by clicking on the link below.
+If you did not request for this reset,
+simply ignorethis email and no changes
+will be made to your FlaskBlog account.
+</p>
 
-    <a href="{url_for('reset_token', token=token, _external=True)}">Reset my Password</a>
-
-    <br>
-
-    <small>If you did not request this password
-reset, simply ignore this email and no changes
-will be made to your FLASKBLOG account. <br><br>
-    </small>
+<div class="wrapper" style="text-align: center;">
+<a href="{url_for('reset_token', token=token, _external=True)}
+" style="
+text-decoration: none; font-family: Poppins;
+padding: 20px; background: rgb(255, 206, 92);
+margin: 50px; display: block; color: black;
+font-size: 1.8em;
+">
+Reset my Password
+</a>
+</div>
 """
     mail.send(msg)
 
@@ -45,7 +57,8 @@ will be made to your FLASKBLOG account. <br><br>
 @app.route("/home")
 def home():
     page = request.args.get("page", 1, type=int)
-    posts = Post.query.order_by(Post.date_posted.desc()).paginate(page=page, per_page=5)
+    posts = Post.query.order_by(
+        Post.date_posted.desc()).paginate(page=page, per_page=5)
     return render_template("index.html", posts=posts, current_user=current_user)
 
 
@@ -105,7 +118,8 @@ def save_picture(form_picture):
     random_hex = token_hex(16)
     _, f_extn = os.path.splitext(form_picture.filename)
     picture_filename = random_hex + f_extn
-    picture_path = os.path.join(app.root_path, "static/profile_pics", picture_filename)
+    picture_path = os.path.join(
+        app.root_path, "static/profile_pics", picture_filename)
 
     final_size = (200, 200)
     image = Image.open(form_picture)
@@ -137,7 +151,8 @@ def account():
         form.username.data = current_user.username
         form.email.data = current_user.email
 
-    image_file = url_for("static", filename=f"profile_pics/{current_user.image_file}")
+    image_file = url_for(
+        "static", filename=f"profile_pics/{current_user.image_file}")
     return render_template(
         "account.html", image_file=image_file, form=form, legend="Update your Account"
     )
@@ -248,7 +263,7 @@ def reset_request():
         user = User.query.filter_by(email=form.email.data).first()
         send_reset_email(user)
         flash(
-            "An email has been sent with instructions to reset your password.",
+            "An email has been sent with instructions to reset your password. You can close this tab now.",
             "success",
         )
         return redirect(url_for("login"))
@@ -324,3 +339,19 @@ def confirm_delete_post(post_id):
         post=post,
         legend="Are you sure?",
     )
+
+
+# Errorhandlers!
+@app.errorhandler(404)
+def page_not_found(error):
+    return render_template("404.html")
+
+
+@app.errorhandler(500)
+def internal_server_error(error):
+    return render_template("500.html")
+
+
+@app.errorhandler(403)
+def no_permission(error):
+    return render_template("403.html")

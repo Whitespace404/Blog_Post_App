@@ -1,0 +1,29 @@
+{% extends "base.html" %} {% block title %}Home{% endblock title %} {% block
+content %}
+
+<div class="wrapper">
+  <div
+    class="error-img-403"
+  /></div>
+</div>
+
+<h1 class="error">403. Forbidden.</h1>
+
+<p>
+  You do not have permission to do what you were about to do. <br />
+  If you genuinely have no idea what you did, report an issue
+  <a
+    target="_blank"
+    href="https://github.com/Whitespace404/EverPost/issues/new"
+    style="color: rgb(23, 147, 185); text-decoration: underline"
+    >on Github</a
+  >
+</p>
+
+<div class="links">
+  <a href="{{ url_for('home') }}">
+    Sorry I did that, can I go back to the home page now?
+  </a>
+</div>
+
+{% endblock content %}
