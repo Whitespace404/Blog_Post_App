@@ -341,6 +341,22 @@ def confirm_delete_post(post_id):
     )
 
 
+@app.route("/post/forward/<int:post_id>", methods=["POST"])
+@login_required
+def forward_post(post_id):
+    original_post = Post.query.get_or_404(post_id)
+    new_post = Post(
+        title=original_post.title + "(forwarded)",
+        content=original_post.content,
+        author=current_user,
+        font=original_post.font,
+        font_color=original_post.font_color,
+    )
+    db.session.add(new_post)
+    db.session.commit()
+    return redirect(url_for("home"))
+
+
 # Errorhandlers!
 @app.errorhandler(404)
 def page_not_found(error):
