@@ -13,7 +13,8 @@ class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True, unique=True)
     username = db.Column(db.String(20), unique=True, nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
-    image_file = db.Column(db.String(20), nullable=False, default="default.jpg")
+    image_file = db.Column(db.String(20), nullable=False,
+                           default="default.jpg")
     password = db.Column(db.String(60), nullable=False)
     liked_posts = db.Column(db.Text, default="abcd,abcd")
     subscribed_users = db.Column(db.Text, default="__FLASKBLOG_ADMIN__,")
@@ -41,14 +42,15 @@ class User(db.Model, UserMixin):
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(), nullable=False)
-    date_posted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    date_posted = db.Column(db.DateTime, nullable=False,
+                            default=datetime.utcnow)
     content = db.Column(db.Text, nullable=False)
     is_verified = db.Column(db.Boolean, default=False)
     is_edited = db.Column(db.Boolean, default=False)
+    is_forwarded = db.Column(db.Boolean, default=False)
     views = db.Column(db.Integer, default=0)
     font = db.Column(db.String(30), default="Poppins")
     font_color = db.Column(db.String(20), default="#fff")
-    likes = db.Column(db.Integer, default=0)
 
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
 

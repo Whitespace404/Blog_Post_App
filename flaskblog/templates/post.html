@@ -19,8 +19,8 @@ title %} {% block content %}
       style="font-family: {{ post.font }}; color: {{ post.font_color }}"
     >
       | Written by {{ post.author.username }} on {{
-      post.date_posted.strftime('%Y-%m-%d') }} {% if post.is_edited %} (edited).
-      {% endif %}
+      post.date_posted.strftime('%Y-%m-%d') }} {% if post.is_edited %} (edited)
+      {% endif %} {% if post.is_forwarded == True %} (forwarded) {% endif %}
     </h5>
     <br /><br />
     {% if post.author == current_user %}
@@ -30,7 +30,7 @@ title %} {% block content %}
       >
       <a
         href="{{ url_for('confirm_delete_post', post_id=post.id) }}"
-        class="button"
+        class="danger-button"
         >Delete this Post. This action cannot be undone.
       </a>
     </div>
@@ -66,7 +66,12 @@ title %} {% block content %}
     </div>
 
     <form method="POST" action="{{ url_for('forward_post', post_id=post.id) }}">
-      <input type="submit" value="Forward this Post" />
+      <input
+        type="submit"
+        value="Forward"
+        class="button"
+        style="padding: 1em 2.3em"
+      />
     </form>
   </article>
 </div>

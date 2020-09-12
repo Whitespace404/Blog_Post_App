@@ -28,7 +28,8 @@ class RegistrationForm(FlaskForm):
         "Username", validators=[DataRequired(), Length(min=2, max=20)]
     )
     email = StringField("Email", validators=[DataRequired(), Email()])
-    password = PasswordField("Password", validators=[DataRequired(), Length(min=8)])
+    password = PasswordField("Password", validators=[
+                             DataRequired(), Length(min=8)])
     confirm_password = PasswordField(
         "Confirm Password", validators=[DataRequired(), EqualTo("password")]
     )
@@ -99,10 +100,10 @@ class PostForm(FlaskForm):
         "Font Colour",
         choices=[
             ("#ffffff", "Default"),
-            ("#f72858", "Red"),
+            ("rgb(255, 2, 2)", "Red"),
             ("#3197ff", "Blue"),
-            ("#f3ff31", "Yellow"),
-            ("#0da912", "Green"),
+            ("rgb(255, 209, 2)", "Yellow"),
+            ("rgb(45, 126, 7)", "Green"),
         ],
     )
     submit = SubmitField("Post")

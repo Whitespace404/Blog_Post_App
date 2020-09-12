@@ -373,13 +373,13 @@ hr {
   background: #2ecc71;
 }
 
-form .danger-button {
+.danger-button {
   border: 0px;
   margin-top: 5px;
   background: none;
   display: block;
   text-align: center;
-  border: 2px solid #3498db;
+  border: 2px solid #ce4040;
   padding: 14px 220px;
   margin-top: 20px;
   outline: none;
@@ -389,7 +389,7 @@ form .danger-button {
   cursor: pointer;
 }
 
-form .danger-button:hover {
+.danger-button:hover {
   background: red !important;
 }
 
@@ -516,12 +516,13 @@ input[type="submit"]:hover {
 }
 
 .profile-pic {
-  width: 135px;
-  height: 135px;
   margin-left: 542px;
   margin-right: 550px;
-  border-radius: 50%;
   transition: 0.5s;
+  border-radius: 100vh;
+  width: 115px;
+  height: 115px;
+  object-fit: cover;
 }
 
 .profile-pic:hover {
@@ -619,10 +620,11 @@ input[type="submit"]:hover {
 }
 
 .rounded-profile-pic {
-  border-radius: 50%;
+  border-radius: 100vh;
   margin-left: 20px;
   width: 115px;
   height: 115px;
+  object-fit: cover;
 }
 
 .post-author {
@@ -768,8 +770,4 @@ h1.error {
   text-align: center;
   margin: 0;
   padding: 0;
-}
-
-.error-img-403 {
-  background-image: url("img/error-403.png");
 }

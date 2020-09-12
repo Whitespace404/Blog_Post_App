@@ -346,14 +346,16 @@ def confirm_delete_post(post_id):
 def forward_post(post_id):
     original_post = Post.query.get_or_404(post_id)
     new_post = Post(
-        title=original_post.title + "(forwarded)",
+        title=original_post.title,
         content=original_post.content,
         author=current_user,
         font=original_post.font,
         font_color=original_post.font_color,
+        is_forwarded=True
     )
     db.session.add(new_post)
     db.session.commit()
+    flash("You have forwarded that post successfully.", "success")
     return redirect(url_for("home"))
 
 

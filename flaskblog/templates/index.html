@@ -1,62 +1,83 @@
-{% extends "base.html" %}
-
-{% block title %}Home{% endblock title %}
-
-{% block content %}
+{% extends "base.html" %} {% block title %}Home{% endblock title %} {% block
+content %}
 
 <div class="main">
-    <header class="showcase">
-        <div class="container showcase-inner">
-            <h1>Welcome to EverPost</h1>
-            <a href="#posts" class="viewpost-scroll">View Posts <i class="fas fa-angle-down"
-                    style="color: black; margin-left: 2px;"></i> </a>
-        </div>
-    </header>
-
-    <div id="posts" class="main">
-        {% for post in posts.items %}
-        <article class="main" tabindex="1" style="font-family: {{ post.font }}; color: {{ post.font_color }}">
-            <a href="{{ url_for('post', post_id=post.id )}}"><img
-                    src="{{ url_for('static', filename='profile_pics/' + post.author.image_file) }}"
-                    class="rounded-profile-pic" tabindex="2"></a>
-
-            <a href="{{ url_for('post', post_id=post.id )}}" class="post-title" tabindex="3">
-                <h2 style="font-family: {{ post.font }}; color: {{ post.font_color }}">{{ post.title }}</h2>
-            </a>
-
-            <pre class="post-content" tabindex="4"
-                style="font-family: {{ post.font }}; color: {{ post.font_color }}">{{ post.content }}</pre>
-            <br>
-            <hr>
-            <a href="{{ url_for('user_post', username=post.author.username) }}" class="post-author" tabindex="5">
-                <h6 style="font-family: {{ post.font }}; color: {{ post.font_color }}">| Written by
-                    {{ post.author.username }} on {{ post.date_posted.strftime('%Y-%m-%d') }}
-                    {% if post.is_edited %}
-                    (edited).
-                    {% endif %}
-                </h6>
-            </a>
-        </article>
-        {% endfor %}
-        <br><br><br>
-        <span class="spacing"></span>
-        <div class="pagination" id="pgn">
-            <span class="dot"><i class="fas fa-arrow-left"></i></span>
-            {% for page_num in posts.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
-            {% if page_num %}
-            {% if posts.page == page_num %}
-            <a href="#pgn" id="current-btn">{{ page_num }}</a>
-            {% else %}
-            <a class="pagination-btn" href="{{ url_for('home', page=page_num) }}">{{ page_num }}</a>
-            {% endif %}
-            {% else %}
-            <span class="dot">...</span>
-            {% endif %}
-            {% endfor %}
-            <span class="dot"><i class="fas fa-arrow-right"></i></span>
-        </div>
-        <br><br><br><br><br>
+  <header class="showcase">
+    <div class="container showcase-inner">
+      <h1>Welcome to EverPost</h1>
+      <a href="#posts" class="viewpost-scroll">
+        View Posts
+        <i class="fas fa-angle-down" style="color: black; margin-left: 2px"></i>
+      </a>
     </div>
+  </header>
+
+  <div id="posts" class="main">
+    {% for post in posts.items %}
+    <article
+      class="main"
+      tabindex="1"
+      style="font-family: {{ post.font }}; color: {{ post.font_color }}"
+    >
+      <a href="{{ url_for('post', post_id=post.id )}}"
+        ><img
+          src="{{ url_for('static', filename='profile_pics/' + post.author.image_file) }}"
+          class="rounded-profile-pic"
+          tabindex="2"
+      /></a>
+
+      <a
+        href="{{ url_for('post', post_id=post.id )}}"
+        class="post-title"
+        tabindex="3"
+      >
+        <h2 style="font-family: {{ post.font }}; color: {{ post.font_color }}">
+          {{ post.title }}
+        </h2>
+      </a>
+
+      <pre
+        class="post-content"
+        tabindex="4"
+        style="font-family: {{ post.font }}; color: {{ post.font_color }}"
+      >
+{{ post.content }}</pre
+      >
+      <br />
+      <hr />
+      <a
+        href="{{ url_for('user_post', username=post.author.username) }}"
+        class="post-author"
+        tabindex="5"
+      >
+        <h6 style="font-family: {{ post.font }}; color: {{ post.font_color }}">
+          | Written by {{ post.author.username }} on {{
+          post.date_posted.strftime('%Y-%m-%d') }} {% if post.is_edited %}
+          (edited) {% endif %} {% if post.is_forwarded %} (forwarded). {% endif
+          %}
+        </h6>
+      </a>
+    </article>
+    {% endfor %}
+    <br /><br /><br />
+    <span class="spacing"></span>
+    <div class="pagination" id="pgn">
+      <span class="dot"><i class="fas fa-arrow-left"></i></span>
+      {% for page_num in posts.iter_pages(left_edge=1, right_edge=1,
+      left_current=1, right_current=2) %} {% if page_num %} {% if posts.page ==
+      page_num %}
+      <a href="#pgn" id="current-btn">{{ page_num }}</a>
+      {% else %}
+      <a class="pagination-btn" href="{{ url_for('home', page=page_num) }}"
+        >{{ page_num }}</a
+      >
+      {% endif %} {% else %}
+      <span class="dot">...</span>
+      {% endif %} {% endfor %}
+      <span class="dot"><i class="fas fa-arrow-right"></i></span>
+    </div>
+    <br /><br /><br /><br /><br />
+  </div>
 </div>
 
 {% endblock content %}
