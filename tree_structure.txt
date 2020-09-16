@@ -1,0 +1,33 @@
+-- APP_NAME
+	-- FLASKBLOG
+	__init__.py
+	config.py
+	models.py
+	site.db
+	|______	MAIN
+		|	__init__.py
+		|______	routes.py
+
+	______	STATIC
+		|______	style.css
+
+	______	TEMPLATES
+		|	about.html
+		|	account.html
+		|	create_post.html
+		|	home.html
+		|	layout.html
+		|   user_posts.html
+
+	______	USERS
+		|	__init__.py
+		|	forms.py
+		|	routes.py
+		|______	utils.py
+
+	______	POSTS
+		|	__init__.py
+		|	forms.py
+		|	routes.py
+		
+	run.py
