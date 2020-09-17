@@ -16,6 +16,7 @@ from flaskblog.forms import (
     RequestResetForm,
     ChangePasswordForm,
     ConfirmDeleteForm,
+    VerifyPostForm
 )
 
 
@@ -163,7 +164,6 @@ def account():
 def new_post():
     form = PostForm()
     if form.validate_on_submit():
-
         post = Post(
             title=form.title.data,
             content=form.content.data,
@@ -171,7 +171,6 @@ def new_post():
             font=form.font.data,
             font_color=form.font_color.data,
         )
-
         db.session.add(post)
         db.session.commit()
 

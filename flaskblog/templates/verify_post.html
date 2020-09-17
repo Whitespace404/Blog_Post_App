@@ -5,43 +5,42 @@
 {% block content %}
 
 <div class="main">
-      <article>
-        <img src="{{ url_for('static', filename='profile_pics/' + post.author.image_file) }}"
-        class="rounded-profile-pic">
-          <h2>{{ post.title }}</h2>
-          <p>{{ post.content }}</p>
-          <br>
-        <hr>
-          <h5 class="post-author">| Written by {{ post.author.username }} on {{ post.date_posted.strftime('%Y-%m-%d') }}.</h5>
-        <br><br>
-        {% if post.author == current_user %}
-          <div>
-            <a href="{{ url_for('update_post', post_id=post.id) }}" class="button">Update this Post</a>
-            <form action="{{ url_for('delete_post', post_id=post.id )}}" method="POST">
-                <input type="submit" value="Delete this Post. This action cannot be undone. " class="danger-button">
-            </form>
-          </div>
-        {% endif %}
-    </article>
+  <article>
+    <img src="{{ url_for('static', filename='profile_pics/' + post.author.image_file) }}" class="rounded-profile-pic">
+    <h2>{{ post.title }}</h2>
+    <p>{{ post.content }}</p>
+    <br>
+    <hr>
+    <h5 class="post-author">| Written by {{ post.author.username }} on {{ post.date_posted.strftime('%Y-%m-%d') }}.</h5>
+    <br><br>
+    {% if post.author == current_user %}
+    <div>
+      <a href="{{ url_for('update_post', post_id=post.id) }}" class="button">Update this Post</a>
+      <form action="{{ url_for('delete_post', post_id=post.id )}}" method="POST">
+        <input type="submit" value="Delete this Post. This action cannot be undone. " class="danger-button">
+      </form>
+    </div>
+    {% endif %}
+  </article>
 
-    <form method="POST" action="">
-        {{ form.hidden_tag() }}
-        <fieldset CLASS="validate-post-form">
-            <legend>
-                Post Status
-            </legend>
+  <form method="POST" action="">
+    {{ form.hidden_tag() }}
+    <fieldset CLASS="validate-post-form">
+      <legend>
+        Post Status
+      </legend>
 
-            <div class="checkbox">
-                {{ form.verify(class="form-check-input") }}
-                {{ form.verify.label(class="form-check-input") }}
-            </div>
+      <div class="checkbox">
+        {{ form.verify(class="form-check-input") }}
+        {{ form.verify.label(class="form-check-input") }}
+      </div>
 
-            <div class="submit-btn">
-                {{ form.save_changes }}
-            </div>
+      <div class="submit-btn">
+        {{ form.save_changes(class="button") }}
+      </div>
 
-        </fieldset>
-    </form>
+    </fieldset>
+  </form>
 </div>
 
 {% endblock content %}

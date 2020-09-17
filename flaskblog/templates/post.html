@@ -2,22 +2,15 @@
 title %} {% block content %}
 <div class="main">
   <article>
-    <img
-      src="{{ url_for('static', filename='profile_pics/' + post.author.image_file) }}"
-      class="rounded-profile-pic"
-    />
+    <img src="{{ url_for('static', filename='profile_pics/' + post.author.image_file) }}" class="rounded-profile-pic" />
     <h2 style="font-family: {{ post.font }}; color: {{ post.font_color }}">
       {{ post.title }}
     </h2>
     <pre style="font-family: {{ post.font }}; color: {{ post.font_color }}">
-{{ post.content }}</pre
-    >
+{{ post.content }}</pre>
     <br />
     <hr />
-    <h5
-      class="post-author"
-      style="font-family: {{ post.font }}; color: {{ post.font_color }}"
-    >
+    <h5 class="post-author" style="font-family: {{ post.font }}; color: {{ post.font_color }}">
       | Written by {{ post.author.username }} on {{
       post.date_posted.strftime('%Y-%m-%d') }} {% if post.is_edited %} (edited)
       {% endif %} {% if post.is_forwarded == True %} (forwarded) {% endif %}
@@ -25,13 +18,9 @@ title %} {% block content %}
     <br /><br />
     {% if post.author == current_user %}
     <div class="action-btn">
-      <a href="{{ url_for('update_post', post_id=post.id) }}" class="button"
-        >Update this Post</a
-      >
-      <a
-        href="{{ url_for('confirm_delete_post', post_id=post.id) }}"
-        class="danger-button"
-        >Delete this Post. This action cannot be undone.
+      <a href="{{ url_for('update_post', post_id=post.id) }}" class="button">Update this Post</a>
+      <a href="{{ url_for('confirm_delete_post', post_id=post.id) }}" class="danger-button">Delete this Post. This
+        action cannot be undone.
       </a>
     </div>
     {% endif %} {% if post.is_verified %}
@@ -46,32 +35,18 @@ title %} {% block content %}
 
     {% if post.is_verified and validated %}
     <a href="#"> This post is already verified </a>
-    <a
-      href="{{ url_for('validate_post', post_id=post.id)}}"
-      class="admin-validate-post"
-      style="visibility: hidden"
-    >
-      Validate this post</a
-    >
+    <a href="{{ url_for('validate_post', post_id=post.id)}}" class="admin-validate-post" style="visibility: hidden">
+      Validate this post</a>
     {% elif not post.is_verified and validated %}
-    <a
-      href="{{ url_for('validate_post', post_id=post.id)}}"
-      class="admin-validate-post"
-      style="visibility: visible"
-      >Validate this post</a
-    >
+    <a href="{{ url_for('validate_post', post_id=post.id)}}" class="admin-validate-post"
+      style="visibility: visible">Validate this post</a>
     {% endif %}
     <div class="post-info">
       <h3>Views: {{ post.views }}</h3>
     </div>
 
     <form method="POST" action="{{ url_for('forward_post', post_id=post.id) }}">
-      <input
-        type="submit"
-        value="Forward"
-        class="button"
-        style="padding: 1em 2.3em"
-      />
+      <input type="submit" value="Forward" class="button" style="padding: 1em 2.3em" />
     </form>
   </article>
 </div>

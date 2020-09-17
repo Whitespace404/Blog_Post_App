@@ -16,8 +16,6 @@ class User(db.Model, UserMixin):
     image_file = db.Column(db.String(20), nullable=False,
                            default="default.jpg")
     password = db.Column(db.String(60), nullable=False)
-    liked_posts = db.Column(db.Text, default="abcd,abcd")
-    subscribed_users = db.Column(db.Text, default="__FLASKBLOG_ADMIN__,")
     posts = db.relationship("Post", backref="author", lazy=True)
 
     def get_reset_token(self, expires_sec=1800):
@@ -55,4 +53,5 @@ class Post(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
 
     def __repr__(self):
-        return f"[POST] {self.id} posted {self.title} on {self.date_posted}\t VALIDATED={self.is_verified}"
+        return f"""{self.id}) {self.title} 
+        Posted on:{self.date_posted}\n"""

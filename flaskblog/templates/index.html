@@ -14,42 +14,22 @@ content %}
 
   <div id="posts" class="main">
     {% for post in posts.items %}
-    <article
-      class="main"
-      tabindex="1"
-      style="font-family: {{ post.font }}; color: {{ post.font_color }}"
-    >
-      <a href="{{ url_for('post', post_id=post.id )}}"
-        ><img
-          src="{{ url_for('static', filename='profile_pics/' + post.author.image_file) }}"
-          class="rounded-profile-pic"
-          tabindex="2"
-      /></a>
+    <article class="main" tabindex="1" style="font-family: {{ post.font }}; color: {{ post.font_color }}">
+      <a href="{{ url_for('post', post_id=post.id )}}"><img
+          src="{{ url_for('static', filename='profile_pics/' + post.author.image_file) }}" class="rounded-profile-pic"
+          tabindex="2" /></a>
 
-      <a
-        href="{{ url_for('post', post_id=post.id )}}"
-        class="post-title"
-        tabindex="3"
-      >
+      <a href="{{ url_for('post', post_id=post.id )}}" class="post-title" tabindex="3">
         <h2 style="font-family: {{ post.font }}; color: {{ post.font_color }}">
           {{ post.title }}
         </h2>
       </a>
 
-      <pre
-        class="post-content"
-        tabindex="4"
-        style="font-family: {{ post.font }}; color: {{ post.font_color }}"
-      >
-{{ post.content }}</pre
-      >
+      <pre class="post-content" tabindex="4" style="font-family: {{ post.font }}; color: {{ post.font_color }}">
+{{ post.content }}</pre>
       <br />
       <hr />
-      <a
-        href="{{ url_for('user_post', username=post.author.username) }}"
-        class="post-author"
-        tabindex="5"
-      >
+      <a href="{{ url_for('user_post', username=post.author.username) }}" class="post-author" tabindex="5">
         <h6 style="font-family: {{ post.font }}; color: {{ post.font_color }}">
           | Written by {{ post.author.username }} on {{
           post.date_posted.strftime('%Y-%m-%d') }} {% if post.is_edited %}
@@ -68,9 +48,7 @@ content %}
       page_num %}
       <a href="#pgn" id="current-btn">{{ page_num }}</a>
       {% else %}
-      <a class="pagination-btn" href="{{ url_for('home', page=page_num) }}"
-        >{{ page_num }}</a
-      >
+      <a class="pagination-btn" href="{{ url_for('home', page=page_num) }}">{{ page_num }}</a>
       {% endif %} {% else %}
       <span class="dot">...</span>
       {% endif %} {% endfor %}

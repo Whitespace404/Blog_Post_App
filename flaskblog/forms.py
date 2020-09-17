@@ -1,26 +1,20 @@
 from flask_wtf import FlaskForm, RecaptchaField
 from flask_wtf.file import FileField, FileAllowed
 from flask_login import current_user
-
 from wtforms import (
-    StringField,
-    PasswordField,
-    SubmitField,
-    BooleanField,
-    SelectField,
-    RadioField,
+    StringField, PasswordField, SubmitField,
+    BooleanField, SelectField, RadioField,
     TextAreaField,
 )
-
 from wtforms.validators import (
     DataRequired,
-    Length,
-    Email,
-    EqualTo,
-    ValidationError,
+    Length, Email,
+    EqualTo, ValidationError,
     InputRequired,
 )
 from flaskblog.models import User, Post
+
+SPECIAL_CHARACTERS = "/\\-+!@#$%^&()~`><=*_\{\}[]';:\"?.,|"
 
 
 class RegistrationForm(FlaskForm):
@@ -45,11 +39,20 @@ class RegistrationForm(FlaskForm):
         if user:
             raise ValidationError("This email already exists.")
 
+    def validate_password(self, password):
+        validated_ = False
+        for character in SPECIAL_CHARACTERS:
+            if character in password.data:
+                validated_ = True
+        if not validated_:
+            raise ValidationError(
+                "Your password should have at least on special character.")
+
 
 class LoginForm(FlaskForm):
     username = StringField("Username", validators=[DataRequired()])
     password = PasswordField("Password", validators=[DataRequired()])
-    remember = BooleanField("Remember Me")  # , default="checked"
+    remember = BooleanField("Remember Me")
     recaptcha = RecaptchaField()
     submit = SubmitField("Login")
 
@@ -141,6 +144,7 @@ class ConfirmDeleteForm(FlaskForm):
     confirmation_text = StringField(
         "Type in some text longer that 3 characters to confirm\
         the deletion of this post",
-        validators=[InputRequired(), Length(min=3)],
+        validators=[InputRequired(), Length(
+            min=4, message="Enter text more than 3 characters.")],
     )
     submit = SubmitField("I am sure I want to delete this post.")
