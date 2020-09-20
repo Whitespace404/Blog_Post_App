@@ -54,6 +54,22 @@ Reset my Password
     mail.send(msg)
 
 
+def send_reset_confirmation(user):
+    msg = Message(
+        "Password Reset Confirmation", sender="noreply@demo.com", recipients=[user.email]
+    )
+
+    msg.html = """
+    <h1 style="font-family: Poppins;text-align: center; ">
+Password Reset | FlaskBlog </h1>
+<p style="text-align: center; font-family: Poppins;
+font-size: larger;">
+    You have reset your FlaskBlog password successfully.
+</p>
+"""
+    mail.send(msg)
+
+
 @app.route("/")
 @app.route("/home")
 def home():
@@ -255,6 +271,7 @@ def user_post(username):
 @app.route("/reset_password", methods=["GET", "POST"])
 def reset_request():
     if current_user.is_authenticated:
+        flash("You are already logged in.")
         return redirect(url_for("home"))
     form = RequestResetForm()
 
@@ -291,6 +308,8 @@ def reset_token(token):
         user.password = hashed_password
         db.session.commit()
         flash("Your password has been updated! You are now able to log in", "success")
+        send_reset_confirmation(user)
+
         return redirect(url_for("login"))
     return render_template(
         "reset_token.html",

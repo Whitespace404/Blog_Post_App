@@ -1,6 +1,6 @@
 # EverPost
 
-![No Internet](https://cdn.pixabay.com/photo/2015/01/20/12/51/imac-605421_960_720.jpg)
+![Unable to load image.](https://cdn.pixabay.com/photo/2015/01/20/12/51/imac-605421_960_720.jpg)
 
 A blog post app similar to Twitter where users can register, log in, create posts, read posts, 
 like posts, edit their posts, delete their posts, change the font and font color of their posts,
@@ -148,3 +148,4 @@ Minimize the Terminal window and visit localhost:5000/ to see the application. I
 
 Once you are done using the application, you can press Control + C if you want to stop the running server.
 
+---
