@@ -1,20 +1,9 @@
+from flask_login import current_user
+from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
 from flask_wtf import FlaskForm, RecaptchaField
 from flask_wtf.file import FileField, FileAllowed
-from flask_login import current_user
-from wtforms import (
-    StringField, PasswordField, SubmitField,
-    BooleanField, SelectField, RadioField,
-    TextAreaField,
-)
-from wtforms.validators import (
-    DataRequired,
-    Length, Email,
-    EqualTo, ValidationError,
-    InputRequired,
-)
-from flaskblog.models import User, Post
-
-SPECIAL_CHARACTERS = "/\\-+!@#$%^&()~`><=*_\{\}[]';:\"?.,|"
+from wtforms import StringField, PasswordField, SubmitField, BooleanField
+from flaskblog.models import User
 
 
 class RegistrationForm(FlaskForm):
@@ -40,6 +29,7 @@ class RegistrationForm(FlaskForm):
             raise ValidationError("This email already exists.")
 
     def validate_password(self, password):
+        SPECIAL_CHARACTERS = "/\\-+!@#$%^&()~`><=*_\{\}[]';:\"?.,|"
         validated_ = False
         for character in SPECIAL_CHARACTERS:
             if character in password.data:
@@ -82,36 +72,6 @@ class UpdateAccountForm(FlaskForm):
                 )
 
 
-class PostForm(FlaskForm):
-    title = StringField("Title", validators=[DataRequired()])
-    content = TextAreaField("Content", validators=[DataRequired()])
-    font = SelectField(
-        "Font",
-        choices=[
-            ("Poppins", "Default"),
-            ("Didot", "Didot"),
-            ("Quicksand", "Quicksand"),
-            ('"Roboto Mono"', "Monospace"),
-            ("Caveat", "Cursive"),
-            ("Roboto", "Roboto"),
-            ("Montserrat", "Montserrat"),
-            ('"Balsamiq Sans", sans-serif', "Balsamiq Sans"),
-            ("Lobster", "Lobster"),
-        ],
-    )
-    font_color = SelectField(
-        "Font Colour",
-        choices=[
-            ("#ffffff", "Default"),
-            ("rgb(255, 2, 2)", "Red"),
-            ("#3197ff", "Blue"),
-            ("rgb(255, 209, 2)", "Yellow"),
-            ("rgb(45, 126, 7)", "Green"),
-        ],
-    )
-    submit = SubmitField("Post")
-
-
 class RequestResetForm(FlaskForm):
     email = StringField("Email", validators=[DataRequired(), Email()])
     recaptcha = RecaptchaField()
@@ -133,18 +93,3 @@ class ChangePasswordForm(FlaskForm):
         "Confirm New Password", validators=[DataRequired(), Length(min=8)]
     )
     submit = SubmitField("Change my Password.")
-
-
-class VerifyPostForm(FlaskForm):
-    verify = BooleanField("Verify this post?")
-    save_changes = SubmitField("Save Changes")
-
-
-class ConfirmDeleteForm(FlaskForm):
-    confirmation_text = StringField(
-        "Type in some text longer that 3 characters to confirm\
-        the deletion of this post",
-        validators=[InputRequired(), Length(
-            min=4, message="Enter text more than 3 characters.")],
-    )
-    submit = SubmitField("I am sure I want to delete this post.")

@@ -15,8 +15,8 @@
     <br><br>
     {% if post.author == current_user %}
     <div>
-      <a href="{{ url_for('update_post', post_id=post.id) }}" class="button">Update this Post</a>
-      <form action="{{ url_for('delete_post', post_id=post.id )}}" method="POST">
+      <a href="{{ url_for('posts.update_post', post_id=post.id) }}" class="button">Update this Post</a>
+      <form action="{{ url_for('posts.delete_post', post_id=post.id )}}" method="POST">
         <input type="submit" value="Delete this Post. This action cannot be undone. " class="danger-button">
       </form>
     </div>

@@ -3,52 +3,52 @@
 {% block form %}
 <div class="email">
     {{ form.username.label }}<br><i class="fas fa-user"></i>
-        {% if form.username.errors %}
-            {{ form.username(class="invalid-username") }}
-            <div class="invalid-feedback">
-            {% for error in form.username.errors %}
-                <span>{{ error }}</span>
-            {% endfor %}
-            </div>
-        {% else %}
-            {{ form.username }}
-        {% endif %}
+    {% if form.username.errors %}
+    {{ form.username(class="invalid-username") }}
+    <div class="invalid-feedback">
+        {% for error in form.username.errors %}
+        <span>{{ error }}</span>
+        {% endfor %}
+    </div>
+    {% else %}
+    {{ form.username }}
+    {% endif %}
 </div>
 
 <div class="email">
     {{ form.password.label }}<br><i class="fas fa-envelope"></i>
-        {% if form.password.errors %}
-            {{ form.password(class="invalid-password") }}
-            <div class="invalid-feedback">
-            {% for error in form.password.errors %}
-                <span>{{ error }}</span>
-            {% endfor %}
-            </div>
-        {% else %}
-            {{ form.password }}
-        {% endif %}
+    {% if form.password.errors %}
+    {{ form.password(class="invalid-password") }}
+    <div class="invalid-feedback">
+        {% for error in form.password.errors %}
+        <span>{{ error }}</span>
+        {% endfor %}
+    </div>
+    {% else %}
+    {{ form.password }}
+    {% endif %}
 </div>
 
 <div class="checkbox">
-{{ form.remember(class="form-check-input") }}
-{{ form.remember.label(class="form-check-input") }}
+    {{ form.remember(class="form-check-input") }}
+    {{ form.remember.label(class="form-check-input") }}
 </div><br>
 
 <div class="recaptcha">
     {{ form.recaptcha }}
     <div class="invalid-feedback">
         {% for error in form.recaptcha.errors %}
-            <span>{{ error }}</span>
+        <span>{{ error }}</span>
         {% endfor %}
     </div>
 </div><br>
 
 <small>
-    <a href="{{ url_for('register') }}">Need an Account? Sign Up!</a><br>
-    <a href="{{ url_for('reset_request') }}"> Forgot Your Password? </a>
+    <a href="{{ url_for('user.register') }}">Need an Account? Sign Up!</a><br>
+    <a href="{{ url_for('user.reset_request') }}"> Forgot Your Password? </a>
 </small>
 
 <div class="submit-btn">
-{{ form.submit }}
+    {{ form.submit }}
 </div>
 {% endblock form %}

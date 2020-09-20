@@ -2,11 +2,7 @@
 content %}
 
 <div class="wrapper">
-  <img
-    class="error-img"
-    src="../static/img/error-404.png"
-    alt="404 Error Image could not load successfuly"
-  />
+  <img class="error-img" src="../static/img/error-404.png" alt="404 Error Image could not load successfuly" />
 </div>
 
 <h1 class="error">404. That's an error.</h1>
@@ -15,16 +11,12 @@ content %}
   The page you are looking for does not exist, it may have been moved or
   deleted. <br />If you think we have left an outdated link laying around,
   report an issue
-  <a
-    target="_blank"
-    href="https://github.com/Whitespace404/EverPost/issues/new"
-    style="color: rgb(23, 147, 185); text-decoration: underline"
-    >on Github</a
-  >.
+  <a target="_blank" href="https://github.com/Whitespace404/EverPost/issues/new"
+    style="color: rgb(23, 147, 185); text-decoration: underline">on Github</a>.
 </p>
 
 <div class="links">
-  <a href="{{ url_for('home') }}">
+  <a href="{{ url_for('main.home') }}">
     I am lost, take me back to the home page!
   </a>
 </div>

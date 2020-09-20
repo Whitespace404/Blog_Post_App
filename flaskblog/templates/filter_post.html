@@ -4,32 +4,39 @@
 
 {% block content %}
 <h1> All Posts by {{ user.username }}. ({{ posts.total }})</h1>
-    <div id="posts" class="main">
+<div id="posts" class="main">
     {% for post in posts.items %}
-        <article class="main">
-            <a href="{{ url_for('post', post_id=post.id )}}"><img src="{{ url_for('static', filename='profile_pics/' + post.author.image_file) }}"
-                    class="rounded-profile-pic"></a>
-            <a href="{{ url_for('post', post_id=post.id )}}" class="post-title"><h2>{{ post.title }}</h2> </a>
-            <p class="post-content">{{ post.content }}</p>
-            <br>
-            <hr>
-            <a href="{{ url_for('user_post', username=post.author.username) }}" class="post-author"><h6>| Written by {{ post.author.username }} on {{ post.date_posted.strftime('%Y-%m-%d') }}.
-            </h6></a>
-        </article>
+    <article class="main">
+        <a href="{{ url_for('posts.post', post_id=post.id )}}"><img
+                src="{{ url_for('static', filename='profile_pics/' + post.author.image_file) }}"
+                class="rounded-profile-pic"></a>
+        <a href="{{ url_for('posts.post', post_id=post.id )}}" class="post-title">
+            <h2>{{ post.title }}</h2>
+        </a>
+        <p class="post-content">{{ post.content }}</p>
+        <br>
+        <hr>
+        <a href="{{ url_for('user.user_post', username=post.author.username) }}" class="post-author">
+            <h6>| Written by {{ post.author.username }} on {{ post.date_posted.strftime('%Y-%m-%d') }}.
+            </h6>
+        </a>
+    </article>
     {% endfor %}
-        <span class="spacing"></span>
-        {% for page_num in posts.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
-            {% if page_num %}
-                {% if posts.page == page_num %}
-                    <a class="current-button" href="{{ url_for('user_post', page=page_num, username=user.username) }}">{{ page_num }}</a>
-                {% else %}
-                    <a class="pagination-btn" href="{{ url_for('user_post', page=page_num, username=user.username) }}">{{ page_num }}</a>
-                {% endif %}
-            {% else %}
-                <span>...</span>
-            {% endif %}
-        {% endfor %}
-        <br><br><br><br><br><br><br><br>
-    </div>
+    <span class="spacing"></span>
+    {% for page_num in posts.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+    {% if page_num %}
+    {% if posts.page == page_num %}
+    <a class="current-button"
+        href="{{ url_for('user.user_post', page=page_num, username=user.username) }}">{{ page_num }}</a>
+    {% else %}
+    <a class="pagination-btn"
+        href="{{ url_for('user.user_post', page=page_num, username=user.username) }}">{{ page_num }}</a>
+    {% endif %}
+    {% else %}
+    <span>...</span>
+    {% endif %}
+    {% endfor %}
+    <br><br><br><br><br><br><br><br>
+</div>
 </div>
 {% endblock content %}

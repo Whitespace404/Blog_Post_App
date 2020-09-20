@@ -31,14 +31,14 @@
                     <div>
                         <div>
                             <ul id="navbar-links">
-                                <li id="ml-200"> <a href=" {{ url_for('home') }} "> Home </a> </li>
+                                <li id="ml-200"> <a href=" {{ url_for('main.home') }} "> Home </a> </li>
                                 {% if current_user.is_authenticated %}
-                                <li><a href=" {{ url_for('account') }}"> Portfolio </a></li>
-                                <li><a href=" {{ url_for('new_post') }} "> Create Post </a></li>
-                                <li><a href=" {{ url_for('logout') }} " id="red-text"> Logout </a></li>
+                                <li><a href=" {{ url_for('user.account') }}"> Portfolio </a></li>
+                                <li><a href=" {{ url_for('posts.new_post') }} "> Create Post </a></li>
+                                <li><a href=" {{ url_for('user.logout') }} " id="red-text"> Logout </a></li>
                                 {% else %}
-                                <li><a href=" {{ url_for('login') }} "> Login </a></li>
-                                <li><a href=" {{ url_for('register')}} "> Register </a></li>
+                                <li><a href=" {{ url_for('user.login') }} "> Login </a></li>
+                                <li><a href=" {{ url_for('user.register')}} "> Register </a></li>
                                 {% endif %}
                             </ul>
                         </div>
