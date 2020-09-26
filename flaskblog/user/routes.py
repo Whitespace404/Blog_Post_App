@@ -49,7 +49,7 @@ def login():
             else:
                 return redirect(url_for("main.home"))
         else:
-            flash("Login Unsuccessful. Please check email and password", "danger")
+            flash("Login Unsuccessful. Please check username and password", "danger")
     return render_template("login.html", form=form, legend="Login")
 
 

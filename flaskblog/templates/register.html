@@ -13,7 +13,7 @@
         {% endfor %}
     </div>
     {% else %}
-    {{ form.username }}
+    {{ form.username(minlength=3, maxlength=30) }}
     {% endif %}
 </div>
 
@@ -28,7 +28,7 @@
         {% endfor %}
     </div>
     {% else %}
-    {{ form.email }}
+    {{ form.email(type="email", placeholder="Enter a valid email adress.") }}
     {% endif %}
 </div>
 
@@ -42,7 +42,7 @@
         {% endfor %}
     </div>
     {% else %}
-    {{ form.password }}
+    {{ form.password(minlength=8) }}
     {% endif %}
 </div>
 
@@ -56,7 +56,7 @@
         {% endfor %}
     </div>
     {% else %}
-    {{ form.confirm_password }}
+    {{ form.confirm_password(minlength=8) }}
     {% endif %}
 </div>
 

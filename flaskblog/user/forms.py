@@ -1,5 +1,5 @@
 from flask_login import current_user
-from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
+from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError, NoneOf
 from flask_wtf import FlaskForm, RecaptchaField
 from flask_wtf.file import FileField, FileAllowed
 from wtforms import StringField, PasswordField, SubmitField, BooleanField
@@ -8,15 +8,17 @@ from flaskblog.models import User
 
 class RegistrationForm(FlaskForm):
     username = StringField(
-        "Username", validators=[DataRequired(), Length(min=2, max=20)]
+        "Username", validators=[DataRequired(), Length(min=3, max=20, message="A username should atleast have three characters.")]
     )
     email = StringField("Email", validators=[DataRequired(), Email()])
     password = PasswordField("Password", validators=[
-                             DataRequired(), Length(min=8)])
+                             DataRequired(), Length(min=8),
+                             NoneOf(values=["password", "thisisadifficultpassword"])
+                             ])
     confirm_password = PasswordField(
         "Confirm Password", validators=[DataRequired(), EqualTo("password")]
     )
-    submit = SubmitField("Sign Up")
+    submit = SubmitField("Create Account")
 
     def validate_username(self, username):
         user = User.query.filter_by(username=username.data).first()
@@ -36,7 +38,7 @@ class RegistrationForm(FlaskForm):
                 validated_ = True
         if not validated_:
             raise ValidationError(
-                "Your password should have at least on special character.")
+                "Your password should have a special character.")
 
 
 class LoginForm(FlaskForm):
@@ -44,7 +46,7 @@ class LoginForm(FlaskForm):
     password = PasswordField("Password", validators=[DataRequired()])
     remember = BooleanField("Remember Me")
     recaptcha = RecaptchaField()
-    submit = SubmitField("Login")
+    submit = SubmitField("Continue")
 
 
 class UpdateAccountForm(FlaskForm):
@@ -53,7 +55,7 @@ class UpdateAccountForm(FlaskForm):
     )
     email = StringField("Email", validators=[DataRequired(), Email()])
     picture = FileField(
-        "Update Profile Picture", validators=[FileAllowed(["jpg", "png", "jpeg"])]
+        "Update Profile Picture", validators=[FileAllowed(["jpg", "png", "jpeg", ""])]
     )
     submit = SubmitField("Update")
 
