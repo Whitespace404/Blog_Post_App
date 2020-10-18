@@ -7,14 +7,45 @@ from flaskblog.models import User
 
 
 class RegistrationForm(FlaskForm):
-    username = StringField(
-        "Username", validators=[DataRequired(), Length(min=3, max=20, message="A username should atleast have three characters.")]
-    )
-    email = StringField("Email", validators=[DataRequired(), Email()])
-    password = PasswordField("Password", validators=[
-                             DataRequired(), Length(min=8),
-                             NoneOf(values=["password", "thisisadifficultpassword"])
-                             ])
+    username = StringField("Username",
+                           validators=[
+                               DataRequired(),
+                               Length(min=3, max=20,
+                                      message="A username should atleast\
+                                            have three characters.")])
+    email = StringField("Email",
+                        validators=[
+                            DataRequired(),
+                            Email()])
+
+    password = PasswordField("Password",
+                             validators=[
+                                 DataRequired(),
+                                 Length(min=8),
+
+                                 NoneOf(
+                                     values=["password", "adminatflaskblog",
+                                             "__FLASKBLOG_ADMIN__"
+                                             "thisisadifficultpassword",
+                                             "qwertyuiop", "password",
+                                             "password!", "password1",
+                                             "1234567890", "abcdefghijkl",
+                                             "123456789", "dirtyadmin",
+                                             "dirtywebsite",
+                                             "0123456789", "flaskblog1",
+                                             "everpost1", "EverPost0",
+                                             "abcdefghijk", "abcdefghijk",
+                                             "abcdefghij", "abcdefghi",
+                                             "abcdefgh", "0987654321",
+                                             "zxcvbnm", "asdfghjkl",
+                                             "thehardestpassword",
+                                             "YouCan'tHackMyPassword",
+                                             "UnbeatablePassword"],
+                                     message="Your password appears in a \
+                                         list of previously hacked passwords."
+                                 )
+                             ]
+                             )
     confirm_password = PasswordField(
         "Confirm Password", validators=[DataRequired(), EqualTo("password")]
     )
@@ -31,14 +62,15 @@ class RegistrationForm(FlaskForm):
             raise ValidationError("This email already exists.")
 
     def validate_password(self, password):
-        SPECIAL_CHARACTERS = "/\\-+!@#$%^&()~`><=*_\{\}[]';:\"?.,|"
+        NUMBERS = "1234567890"
         validated_ = False
-        for character in SPECIAL_CHARACTERS:
+        for character in NUMBERS:
             if character in password.data:
                 validated_ = True
         if not validated_:
             raise ValidationError(
-                "Your password should have a special character.")
+                "Your password should have a number in it."
+            )
 
 
 class LoginForm(FlaskForm):

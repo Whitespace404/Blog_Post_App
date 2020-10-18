@@ -1,62 +1,117 @@
-{% extends "base.html" %} {% block title %}Home{% endblock title %} {% block
-content %}
+<!DOCTYPE html>
+<html lang="en">
 
-<div class="main">
-  <header class="showcase">
-    <div class="container showcase-inner">
-      <h1>Welcome to EverPost</h1>
-      <a href="#posts" class="viewpost-scroll">
-        View Posts
-        <i class="fas fa-angle-down" style="color: black; margin-left: 2px"></i>
-      </a>
+<head>
+  <meta charset="UTF-8">
+  <title>Blog Post App Home</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../static/card.css">
+  <link rel="stylesheet" href="../static/style.css">
+  <script src="https://kit.fontawesome.com/12f9409aaf.js" crossorigin="anonymous"></script>
+  <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+</head>
+
+<body>
+
+  <div class="main">
+    <nav>
+      <div class="menu-wrap">
+        <input type="checkbox" class="toggler" />
+        <div class="hamburger">
+          <div></div>
+        </div>
+
+        <div class="menu main">
+          <div>
+            <div>
+              <ul id="navbar-links">
+                <li id="ml-200"> <a href=" {{ url_for('main.home') }} "> Home </a> </li>
+                {% if current_user.is_authenticated %}
+                <li><a href=" {{ url_for('user.account') }}"> Portfolio </a></li>
+                <li><a href=" {{ url_for('posts.new_post') }} "> Create Post </a></li>
+                <li><a href=" {{ url_for('user.logout') }} " id="red-text"> Logout </a></li>
+                {% else %}
+                <li><a href=" {{ url_for('user.login') }} "> Login </a></li>
+                <li><a href=" {{ url_for('user.register')}} "> Register </a></li>
+                {% endif %}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    {% for category, message in messages %}
+    <div class="alert-{{ category }}">
+      {{ message }}
+      <span class="closebtn" onclick="this.parentElement.style.display='none';">
+        &times;</span>
     </div>
-  </header>
-
-  <div id="posts" class="main">
-    {% for post in posts.items %}
-    <article class="main" tabindex="1" style="font-family: {{ post.font }}; color: {{ post.font_color }}">
-
-      <a href="{{ url_for('posts.post', post_id=post.id )}}">
-        <img src="{{ url_for('static', filename='profile_pics/' + post.author.image_file) }}"
-          class="rounded-profile-pic" tabindex="2" alt="User profile failed to load." />
-      </a>
-
-      <a href="{{ url_for('posts.post', post_id=post.id )}}" class="post-title" tabindex="3">
-        <h2 style="font-family: {{ post.font }}; color: {{ post.font_color }}">
-          {{ post.title }}
-        </h2>
-      </a>
-
-      <pre class="post-content" tabindex="4" style="font-family: {{ post.font }}; color: {{ post.font_color }}">
-{{ post.content}}
-      </pre>
-      <a href="{{ url_for('user.user_post', username=post.author.username) }}" class="post-author" tabindex="5">
-        <h6 style="font-family: {{ post.font }}; color: {{ post.font_color }}">
-          | Written by {{ post.author.username }} on {{
-          post.date_posted.strftime('%Y-%m-%d') }} {% if post.is_edited %}
-          (edited) {% endif %} {% if post.is_forwarded %} (forwarded). {% endif
-          %}
-        </h6>
-      </a>
-    </article>
-    {% endfor %}
-    <br /><br /><br />
-    <span class="spacing"></span>
-    <div class="pagination" id="pgn">
-      <span class="dot"><i class="fas fa-arrow-left"></i></span>
-      {% for page_num in posts.iter_pages(left_edge=1, right_edge=1,
-      left_current=1, right_current=2) %} {% if page_num %} {% if posts.page ==
-      page_num %}
-      <a href="#pgn" id="current-btn">{{ page_num }}</a>
-      {% else %}
-      <a class="pagination-btn" href="{{ url_for('main.home', page=page_num) }}">{{ page_num }}</a>
-      {% endif %} {% else %}
-      <span class="dot">...</span>
-      {% endif %} {% endfor %}
-      <span class="dot"><i class="fas fa-arrow-right"></i></span>
-    </div>
-    <br /><br /><br /><br /><br />
   </div>
-</div>
+  {% endfor %}
+  {% endif %}
+  {% endwith %}
+  <link rel="stylesheet" href="../static/card.css">
+  <div class="main">
+    <header class="showcase">
+      <div class="container showcase-inner">
+        <h1>Welcome to EverPost</h1>
+        <a href="#posts" class="viewpost-scroll">
+          View Posts
+          <i class="fas fa-angle-down" style="color: black; margin-left: 2px"></i>
+        </a>
+      </div>
+    </header>
 
-{% endblock content %}
+    <div id="posts" class="main">
+      <section id="card-list">
+        {% for post in posts.items %}
+        <article id="card">
+          <header id="card-header">
+            <p id="date">{{post.date_posted}}</p>
+            <a href="{{ url_for('posts.post', post_id=post.id )}}" id="title">{{post.title}}</a>
+          </header>
+
+          <div id="card-author">
+            <a href="#" id="author-avatar">
+              <img src="{{ url_for('static', filename='profile_pics/' + post.author.image_file) }}" />
+            </a>
+
+            <!-- SVG Path for Half Circle, Thanks to http://Fireship.io -->
+            <svg id="half-circle" viewBox="0 0 106 57">
+              <path d="M102 4c0 27.1-21.9 49-49 49S4 31.1 4 4"></path>
+            </svg>
+
+            <div id="author-name">
+              <div class="author-name-prefix">Author</div>
+              Jeff Delaney
+            </div>
+          </div>
+        </article>
+        {% endfor %}
+      </section>
+
+      <div class="pagination" id="pgn">
+        <span class="dot">
+          <i class="fas fa-arrow-left"></i>
+        </span>
+        {% for page_num in posts.iter_pages(left_edge=1, right_edge=1,
+        left_current=1, right_current=2) %}
+        {% if page_num %}
+        {% if posts.page == page_num %}
+        <a href="#pgn" id="current-btn">{{ page_num }}</a>
+        {% else %}
+        <a class="pagination-btn" href="{{ url_for('main.home', page=page_num) }}">{{ page_num }}</a>
+        {% endif %}
+        {% else %}
+        <span class="dot">...</span>
+        {% endif %}
+        {% endfor %}
+        <span class="dot"><i class="fas fa-arrow-right"></i></span>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

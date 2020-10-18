@@ -63,51 +63,6 @@ Minimize the Terminal window and visit localhost:5000/ to see the application. I
 Once you are done using the application, you can press Control + C if you want to stop the running server.
 
 ---
-
-## Password Reset
-All features of the application will work except for the password reset feature, 
-which I have disabled due to security reasons because the application signs in to my account to 
-send an email to the user that requested the password reset.
-
-If you want to enable it, press Control + C to stop the running server and type in:
-
-```bash
-  cd ~
-  open -a TextEdit .bash_profile
-```
-
-A window that looks similar to this will open up:
-
-<img src="window.png"/>
-
-Simply type in the following lines at the end and replace the placeholders with their values.
-
-```
-EMAIL_ID="[enter_your_email_id_here]"
-EMAIL_PWD="[enter_your_email_password_here]"
-```
-
-Example:
-
-```
-EMAIL_ID="HOPEFULLYdoesnotexist@example.com"
-EMAIL_PWD="02ca3466a4"
-```
-
-
-Save the file and then restart your Terminal, then run the application again by typing:
-
-```bash
-cd Blog_Post_App
-python3 run.py
-```
-
-**If you do not feel comfortable entering your Email password, it is totally fine. All features of the app will work except for the Password Reset Feature.**
-
-
-###### instructions for Windows password reset coming soon..
-
----
 # Windows
 The installation for Windows is a little
 bit different from the process that Mac users might follow

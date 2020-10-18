@@ -341,11 +341,15 @@ hr {
   transition: 0.7s;
 }
 
+.box input[type="text"]::-webkit-validation-bubble {
+  background: green;
+}
+
 .box input[type="text"]:focus,
 .box input[type="email"]:focus,
 .box input[type="password"]:focus {
   width: 350px;
-  border-color: #ff8801;
+  border-color: #ff5101;
 }
 
 .box input[type="email"]:valid,
