@@ -1,13 +1,7 @@
 # EverPost
+Blogging website using Flask having great features including and not limited to a fully fledged login system, CRUD Posts, forward other posts, change the font and font color of posts, change profile picture and request a password reset.
 
 ![Unable to load image.](https://cdn.pixabay.com/photo/2015/01/20/12/51/imac-605421_960_720.jpg)
-
-A blog post app similar to Twitter where users can register, log in, create posts, read posts, 
-like posts, edit their posts, delete their posts, change the font and font color of their posts,
-have an admin validate their posts, change their profile picture and request a password reset email
-which will be sent to their registered Gmail account.
-
-Please consider starring the repository if you liked it.
 
 # **How to clone repository**
 
@@ -46,6 +40,7 @@ python --version
 ```bash
 git clone https://github.com/Whitespace404/Blog_Post_App.git
 cd Blog_Post_App
+cd misc
 pip3 install -r requirements.txt 
 python3 run.py
 ```
@@ -89,6 +84,7 @@ Once you have downloaded and installed the prerequisites, run the following comm
 ```
 git clone https://github.com/Whitespace404/Blog_Post_App.git
 cd Blog_Post_App
+cd misc
 pip install -r requirements.txt 
 python run.py
 ```
@@ -100,10 +96,12 @@ window after you have executed the last command:
 <img src="success.png">
 
 
-Minimize the Terminal window and visit localhost:5000/ to see the application. If that doesn't work, click 
-<a href="http://127.0.0.1:5000/">here
-</a>
+Minimize the Terminal window click 
+<a href="http://127.0.0.1:5000/">here 
+</a> to view the application.
 
 Once you are done using the application, you can press Control + C if you want to stop the running server.
+
+## For any issues with the instructions or the application, please <a href="https://github.com/Whitespace404/EverPost/issues/new">raise an issue</a>
 
 ---

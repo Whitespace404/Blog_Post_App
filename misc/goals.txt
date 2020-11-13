@@ -16,5 +16,6 @@ Users can see which posts are edited            √
 Users can forward posts                         √
 Users can see which posts are forwarded         √
 
-App uses blueprints                             x
+App uses blueprints                             √
+Clean directory structure                       √
 Users can log in using OAuth                    x

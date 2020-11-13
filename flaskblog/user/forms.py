@@ -1,5 +1,12 @@
 from flask_login import current_user
-from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError, NoneOf
+from wtforms.validators import (
+    DataRequired,
+    Length,
+    Email,
+    EqualTo,
+    ValidationError,
+    NoneOf,
+)
 from flask_wtf import FlaskForm, RecaptchaField
 from flask_wtf.file import FileField, FileAllowed
 from wtforms import StringField, PasswordField, SubmitField, BooleanField
@@ -7,45 +14,60 @@ from flaskblog.models import User
 
 
 class RegistrationForm(FlaskForm):
-    username = StringField("Username",
-                           validators=[
-                               DataRequired(),
-                               Length(min=3, max=20,
-                                      message="A username should atleast\
-                                            have three characters.")])
-    email = StringField("Email",
-                        validators=[
-                            DataRequired(),
-                            Email()])
+    username = StringField(
+        "Username",
+        validators=[
+            DataRequired(),
+            Length(
+                min=3,
+                max=20,
+                message="A username should atleast\
+                                            have three characters.",
+            ),
+        ],
+    )
+    email = StringField("Email", validators=[DataRequired(), Email()])
 
-    password = PasswordField("Password",
-                             validators=[
-                                 DataRequired(),
-                                 Length(min=8),
-
-                                 NoneOf(
-                                     values=["password", "adminatflaskblog",
-                                             "__FLASKBLOG_ADMIN__"
-                                             "thisisadifficultpassword",
-                                             "qwertyuiop", "password",
-                                             "password!", "password1",
-                                             "1234567890", "abcdefghijkl",
-                                             "123456789", "dirtyadmin",
-                                             "dirtywebsite",
-                                             "0123456789", "flaskblog1",
-                                             "everpost1", "EverPost0",
-                                             "abcdefghijk", "abcdefghijk",
-                                             "abcdefghij", "abcdefghi",
-                                             "abcdefgh", "0987654321",
-                                             "zxcvbnm", "asdfghjkl",
-                                             "thehardestpassword",
-                                             "YouCan'tHackMyPassword",
-                                             "UnbeatablePassword"],
-                                     message="Your password appears in a \
-                                         list of previously hacked passwords."
-                                 )
-                             ]
-                             )
+    password = PasswordField(
+        "Password",
+        validators=[
+            DataRequired(),
+            Length(min=8),
+            NoneOf(
+                values=[
+                    "password",
+                    "adminatflaskblog",
+                    "__FLASKBLOG_ADMIN__" "thisisadifficultpassword",
+                    "qwertyuiop",
+                    "password",
+                    "password!",
+                    "password1",
+                    "1234567890",
+                    "abcdefghijkl",
+                    "123456789",
+                    "dirtyadmin",
+                    "dirtywebsite",
+                    "0123456789",
+                    "flaskblog1",
+                    "everpost1",
+                    "EverPost0",
+                    "abcdefghijk",
+                    "abcdefghijk",
+                    "abcdefghij",
+                    "abcdefghi",
+                    "abcdefgh",
+                    "0987654321",
+                    "zxcvbnm",
+                    "asdfghjkl",
+                    "thehardestpassword",
+                    "YouCan'tHackMyPassword",
+                    "UnbeatablePassword",
+                ],
+                message="Your password appears in a \
+                                         list of previously hacked passwords.",
+            ),
+        ],
+    )
     confirm_password = PasswordField(
         "Confirm Password", validators=[DataRequired(), EqualTo("password")]
     )
@@ -68,9 +90,7 @@ class RegistrationForm(FlaskForm):
             if character in password.data:
                 validated_ = True
         if not validated_:
-            raise ValidationError(
-                "Your password should have a number in it."
-            )
+            raise ValidationError("Your password should have a number in it.")
 
 
 class LoginForm(FlaskForm):
