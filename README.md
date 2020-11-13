@@ -9,10 +9,9 @@ If you want to clone the repository and try it
 out on your own computer, follow the steps 
 mentioned below. All the features of the app mentioned 
 above will work except for the password reset email feature, which
-will not work now due to security reasons. I will be editing this readme to 
-also have instructions on how to enable the reset password feature as well.
+will not work now due to security reasons. 
 
-_If you find an issue with the application - mention it [here.](https://github.com/Whitespace404/EverPost/issues/new)_
+_If you find an issue with the application or this README - mention it [here.](https://github.com/Whitespace404/EverPost/issues/new)_
 
 
 # Mac OS 
@@ -49,7 +48,7 @@ If you followed all the steps above correctly,
 you should see something similar to this in your Terminal 
 window after you have executed the last command:
   
-<img src="success.png">
+<img src="readme-img/success.png">
 
 Minimize the Terminal window and visit localhost:5000/ to see the application. If that doesn't work, click 
 <a href="http://127.0.0.1:5000/">here
@@ -93,7 +92,7 @@ If you followed all the steps above correctly,
 you should something similar this in your terminal 
 window after you have executed the last command:
 
-<img src="success.png">
+<img src="readme-img/success.png">
 
 
 Minimize the Terminal window click 
@@ -102,6 +101,6 @@ Minimize the Terminal window click
 
 Once you are done using the application, you can press Control + C if you want to stop the running server.
 
-## For any issues with the instructions or the application, please <a href="https://github.com/Whitespace404/EverPost/issues/new">raise an issue</a>
+## If you find any issues with the instructions to clone the repository or the application, please <a href="https://github.com/Whitespace404/EverPost/issues/new">raise an issue.</a>
 
 ---
