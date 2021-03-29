@@ -25,7 +25,7 @@ body {
   font-family: "Poppins", Poppins, sans-serif;
   line-height: 1.4;
 }
-
+/* 
 ::-webkit-scrollbar {
   width: 25px;
 }
@@ -41,7 +41,7 @@ body {
   outline: #ce4040;
   cursor: pointer;
   transition: 0.5s;
-}
+} */
 
 html {
   scroll-behavior: smooth;
